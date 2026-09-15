@@ -11,6 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Button } from '../components/Button';
 import { Card, type StampKind } from '../components/Card';
+import { Trunk } from '../components/Trunk';
 import { Pen, Sans } from '../components/Typo';
 import { buildDeck, NIGHTS, PASS_SAY, pick, SEASONS, YES_SAY } from '../data/items';
 import { useStore } from '../store';
@@ -18,6 +19,7 @@ import { space, useTheme } from '../theme';
 
 const OUT = Easing.bezier(0.3, 0.7, 0.3, 1);
 const IN = Easing.bezier(0.5, 0, 0.9, 0.5);
+const STAGE_H = 290;
 
 export function DeckScreen() {
   const { c } = useTheme();
@@ -127,11 +129,16 @@ export function DeckScreen() {
     sayY.value = withTiming(0, { duration: d(250) });
     Haptics.impactAsync(kind === 'yes' ? Haptics.ImpactFeedbackStyle.Medium : Haptics.ImpactFeedbackStyle.Light).catch(() => {});
 
-    // 2) 카드 날아가기 (챙김: 오른쪽, 패스: 왼쪽) — 4단계에서 챙김은 트렁크로 떨어지게 바꾼다
+    // 2) 카드 날아가기 (챙김: 트렁크로 쪼그라들며 떨어짐, 패스: 왼쪽으로)
     later(() => {
-      const dir = kind === 'yes' ? 1 : -1;
-      tx.value = withTiming(dir * width * 1.2, { duration: d(420), easing: IN });
-      rot.value = withTiming(dir * 11, { duration: d(420), easing: IN });
+      if (kind === 'yes') {
+        ty.value = withTiming(STAGE_H * 0.75, { duration: d(420), easing: IN });
+        scale.value = withTiming(0.12, { duration: d(420), easing: IN });
+        rot.value = withTiming(6, { duration: d(420), easing: IN });
+      } else {
+        tx.value = withTiming(-width * 1.2, { duration: d(420), easing: IN });
+        rot.value = withTiming(-10, { duration: d(420), easing: IN });
+      }
       opacity.value = withTiming(0, { duration: d(380) });
 
       // 3) 상태 넘기고 다음 카드 올리기
@@ -151,7 +158,20 @@ export function DeckScreen() {
     resetForNext('backIn');
   };
 
-  const pct = total ? Math.min(state.i, total) / total : 0;
+  const [closed, setClosed] = useState(false);
+  const [driving, setDriving] = useState(false);
+  useEffect(() => {
+    if (!finished) { setClosed(false); setDriving(false); return; }
+    busy.current = true;
+    later(() => {
+      setClosed(true);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+      later(() => {
+        setDriving(true);
+        later(() => { busy.current = false; dispatch({ type: 'poster' }); }, 950);
+      }, 650);
+    }, 500);
+  }, [finished]);
 
   return (
     <View style={styles.wrap}>
@@ -165,9 +185,6 @@ export function DeckScreen() {
         </Sans>
       </View>
 
-      <View style={[styles.bar, { backgroundColor: c.line }]}>
-        <View style={[styles.barFill, { backgroundColor: c.olive, width: `${Math.round(pct * 100)}%` }]} />
-      </View>
       <View style={styles.tally}>
         <View style={styles.tallyItem}><View style={[styles.dot, { backgroundColor: c.olive }]} /><Sans size={12.5} color={c.muted}>챙김 {counts.yes}</Sans></View>
         <View style={styles.tallyItem}><View style={[styles.dot, styles.dotPass, { backgroundColor: c.line, borderColor: c.muted }]} /><Sans size={12.5} color={c.muted}>패스 {counts.pass}</Sans></View>
@@ -198,9 +215,7 @@ export function DeckScreen() {
       </View>
       <Button title="이전으로" variant="link" disabled={state.i === 0 || finished} onPress={undo} />
 
-      {finished ? (
-        <Button title="포스터 보기" onPress={() => dispatch({ type: 'poster' })} />
-      ) : null}
+      <Trunk yes={counts.yes} total={total} closed={closed} driving={driving} />
     </View>
   );
 }
@@ -210,14 +225,12 @@ const styles = StyleSheet.create({
   top: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', gap: space.md },
   count: { fontVariant: ['tabular-nums'], fontWeight: '500' },
   countBold: { fontWeight: '700' },
-  bar: { height: 6, borderRadius: 999, overflow: 'hidden', marginTop: -4 },
-  barFill: { height: '100%', borderRadius: 999 },
   tally: { flexDirection: 'row', gap: 14, marginTop: -8 },
   tallyItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   dot: { width: 8, height: 8, borderRadius: 4 },
   dotPass: { width: 6, height: 6, borderWidth: 1 },
-  stage: { height: 320, marginBottom: 30 }, // 뒤 카드가 삐져나올 자리
-  done: { position: 'absolute', alignSelf: 'center', top: 140 },
+  stage: { height: STAGE_H, marginBottom: 26 }, // 뒤 카드가 삐져나올 자리
+  done: { position: 'absolute', alignSelf: 'center', top: 120 },
   actions: { flexDirection: 'row', gap: 10 },
   pass: { flex: 1 },
   yes: { flex: 1.6 },
