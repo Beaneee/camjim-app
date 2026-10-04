@@ -12,7 +12,7 @@ import Animated, {
 import { Button } from '../components/Button';
 import { Card, type StampKind } from '../components/Card';
 import { Trunk } from '../components/Trunk';
-import { Pen, Sans } from '../components/Typo';
+import { Display, Sans } from '../components/Typo';
 import { buildDeck, NIGHTS, PASS_SAY, pick, SEASONS, YES_SAY } from '../data/items';
 import { useStore } from '../store';
 import { space, useTheme } from '../theme';
@@ -177,7 +177,7 @@ export function DeckScreen() {
     <View style={styles.wrap}>
       <View style={styles.top}>
         <View>
-          <Pen size={30}>{trip.name}</Pen>
+          <Display size={22}>{trip.name}</Display>
           <Sans size={12} color={c.muted}>{SEASONS[trip.season]} · {NIGHTS[trip.nights]}</Sans>
         </View>
         <Sans size={14} color={c.inkSoft} style={styles.count}>
@@ -191,7 +191,7 @@ export function DeckScreen() {
       </View>
 
       <View style={styles.stage}>
-        {finished ? <Pen size={34} color={c.inkSoft} style={styles.done}>짐 다 실었다!</Pen> : null}
+        {finished ? <Display size={22} color={c.inkSoft} style={styles.done}>짐 다 실었다!</Display> : null}
         {deck[state.i + 2] ? <Card key={deck[state.i + 2].id} item={deck[state.i + 2]} season={trip.season} dim="next2" /> : null}
         {deck[state.i + 1] ? <Card key={deck[state.i + 1].id} item={deck[state.i + 1]} season={trip.season} dim="next" /> : null}
         {item ? (

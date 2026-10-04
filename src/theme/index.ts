@@ -1,7 +1,7 @@
 import { useColorScheme } from 'react-native';
 import { dark, light, type Palette } from './tokens';
 
-export { boxColors, fonts, radius, space } from './tokens';
+export { boxColors, familyFor, fontFiles, fonts, radius, space } from './tokens';
 export type { Palette } from './tokens';
 
 export function useTheme(): { c: Palette; isDark: boolean } {

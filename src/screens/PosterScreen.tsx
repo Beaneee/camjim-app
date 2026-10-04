@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Pen, Sans } from '../components/Typo';
+import { Display, Sans } from '../components/Typo';
 import { useStore } from '../store';
 import { radius, space, useTheme } from '../theme';
 
@@ -12,7 +12,7 @@ export function PosterScreen() {
   const pass = Object.values(state.res).filter((r) => r === 'pass').length;
   return (
     <View style={styles.wrap}>
-      <Pen size={40}>{state.trip?.name}</Pen>
+      <Display size={28}>{state.trip?.name}</Display>
       <Sans color={c.muted}>챙김 {yes} · 패스 {pass}</Sans>
       <Sans color={c.muted}>포스터 화면 (5단계에서 채움)</Sans>
       <Pressable onPress={() => dispatch({ type: 'discard' })} style={[styles.btn, { borderColor: c.line }]}>

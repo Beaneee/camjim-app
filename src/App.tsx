@@ -1,4 +1,4 @@
-import { NanumPenScript_400Regular, useFonts } from '@expo-google-fonts/nanum-pen-script';
+import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -7,7 +7,7 @@ import { DeckScreen } from './screens/DeckScreen';
 import { PosterScreen } from './screens/PosterScreen';
 import { SetupScreen } from './screens/SetupScreen';
 import { StoreProvider, useStore } from './store';
-import { space, useTheme } from './theme';
+import { fontFiles, space, useTheme } from './theme';
 
 function Router() {
   const { state } = useStore();
@@ -29,8 +29,9 @@ function Shell() {
 }
 
 export default function App() {
-  const [fontsLoaded] = useFonts({ NanumPenScript_400Regular });
-  if (!fontsLoaded) return null; // 스플래시가 이 사이를 덮는다
+  const [fontsLoaded, fontError] = useFonts(fontFiles);
+  if (fontError) console.warn('[camjim] 폰트를 불러오지 못해 시스템 폰트로 표시합니다:', fontError.message);
+  if (!fontsLoaded && !fontError) return null; // 스플래시가 이 사이를 덮는다
   return (
     <SafeAreaProvider>
       <StoreProvider>

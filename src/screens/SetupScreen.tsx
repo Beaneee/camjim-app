@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { Button } from '../components/Button';
 import { Segmented } from '../components/Segmented';
-import { Label, Pen, Sans } from '../components/Typo';
+import { Label, Display, Sans } from '../components/Typo';
 import { buildDeck, defaultSeason, NIGHTS, SEASONS, shortName, type Nights, type Season } from '../data/items';
 import { useStore, type Draft } from '../store';
 import { fonts, radius, space, useTheme } from '../theme';
@@ -40,7 +40,7 @@ export function SetupScreen() {
     <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView contentContainerStyle={styles.wrap} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <View>
-          <Pen size={30}>캠핑 짐 체크</Pen>
+          <Display size={24}>캠핑 짐 체크</Display>
           <Sans size={12} color={c.muted}>이번 캠핑에 맞춰 카드를 골라줄게요</Sans>
         </View>
 
@@ -54,7 +54,7 @@ export function SetupScreen() {
             placeholderTextColor={c.line}
             maxLength={14}
             returnKeyType="done"
-            style={[styles.input, { fontFamily: fonts.pen, color: c.ink, backgroundColor: c.card, borderColor: c.line }]}
+            style={[styles.input, { fontFamily: fonts.semibold, color: c.ink, backgroundColor: c.card, borderColor: c.line }]}
           />
         </View>
 
@@ -86,7 +86,7 @@ export function SetupScreen() {
           ) : (
             state.history.slice(0, 4).map((h, i) => (
               <View key={h.date + i} style={[styles.row, { backgroundColor: c.card, borderColor: c.line }]}>
-                <Pen size={24}>{h.name}</Pen>
+                <Display size={17} weight="600">{h.name}</Display>
                 <Sans size={12} color={c.muted}>
                   {fmtDate(h.date)} · {SEASONS[h.season]} {NIGHTS[h.nights]} · 챙김 {h.yes.length} 패스 {h.pass.length}
                 </Sans>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   wrap: { gap: space.lg, paddingBottom: space.xxl },
   field: { gap: space.sm },
-  input: { fontSize: 34, lineHeight: 38, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1.5, borderRadius: radius.button },
+  input: { fontSize: 22, lineHeight: 28, letterSpacing: -0.4, paddingHorizontal: 14, paddingVertical: 14, borderWidth: 1.5, borderRadius: radius.button },
   plan: { borderWidth: 1.5, borderStyle: 'dashed', borderRadius: radius.button, paddingHorizontal: 14, paddingVertical: 12 },
   bold: { fontWeight: '700' },
   history: { gap: space.sm },

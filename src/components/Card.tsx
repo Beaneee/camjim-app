@@ -4,7 +4,7 @@ import Animated, { type AnimatedStyle } from 'react-native-reanimated';
 import type { Item, Season } from '../data/items';
 import { SEASONS } from '../data/items';
 import { radius, useTheme } from '../theme';
-import { Pen, Sans } from './Typo';
+import { Display, Sans } from './Typo';
 
 export type StampKind = 'yes' | 'pass';
 
@@ -35,8 +35,8 @@ export function Card({ item, season, lastPassed, say, stamp = 'yes', style, stam
         style,
       ]}>
       <View>
-        <Pen size={44} style={styles.q}>{item.q}</Pen>
-        {item.q2 ? <Pen size={28} color={c.inkSoft}>{item.q2}</Pen> : null}
+        <Display size={30} style={styles.q}>{item.q}</Display>
+        {item.q2 ? <Display size={20} weight="600" color={c.inkSoft}>{item.q2}</Display> : null}
       </View>
 
       {lastPassed ? (
@@ -56,11 +56,11 @@ export function Card({ item, season, lastPassed, say, stamp = 'yes', style, stam
       </View>
 
       <Animated.View style={[styles.sayWrap, sayStyle]}>
-        <Pen size={26} color={c.inkSoft} style={styles.say} numberOfLines={1}>{say ?? ' '}</Pen>
+        <Sans size={16} weight="500" color={c.inkSoft} style={styles.say} numberOfLines={1}>{say ?? ' '}</Sans>
       </Animated.View>
 
       <Animated.View pointerEvents="none" style={[styles.stamp, { borderColor: stampColor }, stampStyle]}>
-        <Pen size={50} color={stampColor} style={styles.stampText}>{stamp === 'yes' ? '챙김!' : '패스'}</Pen>
+        <Display size={30} weight="800" color={stampColor} style={styles.stampText}>{stamp === 'yes' ? '챙김!' : '패스'}</Display>
       </Animated.View>
     </Animated.View>
   );
@@ -82,13 +82,13 @@ const styles = StyleSheet.create({
   pic: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   frame: { width: 150, height: 150, borderRadius: 75, borderWidth: 1.5, borderStyle: 'dashed', alignItems: 'center', justifyContent: 'center' },
   glyph: { lineHeight: 104, textAlign: 'center' },
-  sayWrap: { minHeight: 30, alignItems: 'center' },
+  sayWrap: { minHeight: 24, alignItems: 'center' },
   say: { textAlign: 'center' },
   stamp: {
     position: 'absolute', right: 20, top: 74,
-    borderWidth: 4, borderRadius: 10, paddingHorizontal: 14, paddingTop: 6, paddingBottom: 2,
+    borderWidth: 4, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 4,
     transform: [{ rotate: '-14deg' }],
   },
-  stampText: { lineHeight: 52 },
+  stampText: { lineHeight: 36 },
 });
 
