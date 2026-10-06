@@ -1,0 +1,1547 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-05T13:28:16+00:00",
+  "title": "Design System: 캠짐 (camjim)",
+  "extensions": {
+    "colorMeta": {
+      "band": {
+        "role": "primary",
+        "displayName": "Signboard Petrol Navy",
+        "canonical": "#0E3B43",
+        "oklch": "oklch(32.6% 0.049 211.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000E12",
+          "#022B31",
+          "#1E4951",
+          "#3E6971",
+          "#5F8B93",
+          "#82AEB7",
+          "#A5D2DC",
+          "#D1F6FE"
+        ]
+      },
+      "on-band": {
+        "role": "primary",
+        "displayName": "Band White",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "band-soft": {
+        "role": "primary",
+        "displayName": "Band Mist",
+        "canonical": "#B9D3D6",
+        "oklch": "oklch(84.9% 0.028 205.1)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000E10",
+          "#13292C",
+          "#304749",
+          "#4F6669",
+          "#6F888A",
+          "#91ABAD",
+          "#B5CFD2",
+          "#DAF4F7"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Cool Ground",
+        "canonical": "#F3F5F4",
+        "oklch": "oklch(96.8% 0.002 165.1)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0A0B0B",
+          "#242525",
+          "#414242",
+          "#606261",
+          "#818382",
+          "#A4A5A4",
+          "#C8CAC9",
+          "#EDEFEE"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Panel White",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Trail Ink",
+        "canonical": "#152221",
+        "oklch": "oklch(24.0% 0.018 190.0)",
+        "theme": "light",
+        "tonalRamp": [
+          "#030E0D",
+          "#1B2827",
+          "#374544",
+          "#566563",
+          "#778685",
+          "#99A9A7",
+          "#BDCDCC",
+          "#E2F3F1"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#3E4D4B",
+        "oklch": "oklch(40.7% 0.019 186.5)",
+        "theme": "light",
+        "tonalRamp": [
+          "#030E0C",
+          "#1A2826",
+          "#374544",
+          "#556563",
+          "#768684",
+          "#98A9A7",
+          "#BCCDCB",
+          "#E1F3F0"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "canonical": "#5C6A68",
+        "oklch": "oklch(51.2% 0.017 186.2)",
+        "theme": "light",
+        "tonalRamp": [
+          "#040E0C",
+          "#1C2826",
+          "#384543",
+          "#576563",
+          "#778684",
+          "#9AA9A7",
+          "#BDCDCB",
+          "#E2F2F0"
+        ]
+      },
+      "control": {
+        "role": "neutral",
+        "displayName": "Control Slate",
+        "canonical": "#7C8A87",
+        "oklch": "oklch(62.1% 0.017 181.5)",
+        "theme": "light",
+        "tonalRamp": [
+          "#040D0C",
+          "#1C2826",
+          "#384542",
+          "#576562",
+          "#788683",
+          "#9AA9A6",
+          "#BECDCA",
+          "#E3F2EF"
+        ]
+      },
+      "track": {
+        "role": "neutral",
+        "displayName": "Track Grey",
+        "canonical": "#E3E8E6",
+        "oklch": "oklch(92.7% 0.006 170.4)",
+        "theme": "light",
+        "tonalRamp": [
+          "#090C0B",
+          "#222625",
+          "#3F4341",
+          "#5E6261",
+          "#7F8382",
+          "#A1A6A4",
+          "#C5CAC8",
+          "#EBF0EE"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Signboard Petrol Navy (action)",
+        "canonical": "#0E3B43",
+        "oklch": "oklch(32.6% 0.049 211.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000E12",
+          "#022B31",
+          "#1E4951",
+          "#3E6971",
+          "#5F8B93",
+          "#82AEB7",
+          "#A5D2DC",
+          "#D1F6FE"
+        ]
+      },
+      "on-primary": {
+        "role": "primary",
+        "displayName": "On Primary",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "tonal": {
+        "role": "secondary",
+        "displayName": "Tonal Teal Wash",
+        "canonical": "#DCE9EA",
+        "oklch": "oklch(92.5% 0.014 202.4)",
+        "theme": "light",
+        "tonalRamp": [
+          "#050D0E",
+          "#1D2728",
+          "#3A4445",
+          "#586465",
+          "#798586",
+          "#9CA8A9",
+          "#BFCCCD",
+          "#E4F1F2"
+        ]
+      },
+      "on-tonal": {
+        "role": "secondary",
+        "displayName": "On Tonal",
+        "canonical": "#0E3B43",
+        "oklch": "oklch(32.6% 0.049 211.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000E12",
+          "#022B31",
+          "#1E4951",
+          "#3E6971",
+          "#5F8B93",
+          "#82AEB7",
+          "#A5D2DC",
+          "#D1F6FE"
+        ]
+      },
+      "later-ink": {
+        "role": "neutral",
+        "displayName": "Later Stamp Ink",
+        "canonical": "#0E3B43",
+        "oklch": "oklch(32.6% 0.049 211.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000E12",
+          "#022B31",
+          "#1E4951",
+          "#3E6971",
+          "#5F8B93",
+          "#82AEB7",
+          "#A5D2DC",
+          "#D1F6FE"
+        ]
+      },
+      "no-ink": {
+        "role": "neutral",
+        "displayName": "No Stamp Ink",
+        "canonical": "#5C6A68",
+        "oklch": "oklch(51.2% 0.017 186.2)",
+        "theme": "light",
+        "tonalRamp": [
+          "#040E0C",
+          "#1C2826",
+          "#384543",
+          "#576563",
+          "#778684",
+          "#9AA9A7",
+          "#BDCDCB",
+          "#E2F2F0"
+        ]
+      },
+      "trunk-in": {
+        "role": "neutral",
+        "displayName": "Trunk Interior",
+        "canonical": "#1E2B2C",
+        "oklch": "oklch(27.8% 0.018 202.1)",
+        "theme": "light",
+        "tonalRamp": [
+          "#030D0E",
+          "#1B2829",
+          "#374546",
+          "#566465",
+          "#778687",
+          "#99A9AA",
+          "#BDCDCE",
+          "#E2F2F4"
+        ]
+      },
+      "car-body": {
+        "role": "neutral",
+        "displayName": "Car Body",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "car-stroke": {
+        "role": "neutral",
+        "displayName": "Car Line",
+        "canonical": "#152221",
+        "oklch": "oklch(24.0% 0.018 190.0)",
+        "theme": "light",
+        "tonalRamp": [
+          "#030E0D",
+          "#1B2827",
+          "#374544",
+          "#566563",
+          "#778685",
+          "#99A9A7",
+          "#BDCDCC",
+          "#E2F3F1"
+        ]
+      },
+      "taillight": {
+        "role": "neutral",
+        "displayName": "Taillight Red",
+        "canonical": "#D7263D",
+        "oklch": "oklch(57.1% 0.209 21.1)",
+        "theme": "light",
+        "tonalRamp": [
+          "#1F0002",
+          "#4B030D",
+          "#7E091D",
+          "#B7002A",
+          "#E43648",
+          "#FE7375",
+          "#FDB3B0",
+          "#FFE9E7"
+        ]
+      },
+      "shadow": {
+        "role": "neutral",
+        "displayName": "Shadow",
+        "canonical": "#0E1F20",
+        "oklch": "oklch(22.5% 0.023 200.5)",
+        "theme": "light",
+        "tonalRamp": [
+          "#010E0F",
+          "#172829",
+          "#344647",
+          "#526566",
+          "#738788",
+          "#95AAAB",
+          "#B9CECF",
+          "#DEF3F5"
+        ]
+      },
+      "zone-home-fill": {
+        "role": "tertiary",
+        "displayName": "A 주거 Site Orange fill",
+        "canonical": "#C2410C",
+        "oklch": "oklch(55.3% 0.174 38.4)",
+        "theme": "light",
+        "tonalRamp": [
+          "#1C0300",
+          "#451100",
+          "#742201",
+          "#A73505",
+          "#D55325",
+          "#FD784C",
+          "#FDB59F",
+          "#FEE9E3"
+        ]
+      },
+      "zone-home-on-fill": {
+        "role": "tertiary",
+        "displayName": "A 주거 Site Orange on-fill",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "zone-home-ink": {
+        "role": "tertiary",
+        "displayName": "A 주거 Site Orange ink",
+        "canonical": "#B23A0A",
+        "oklch": "oklch(51.8% 0.164 38.1)",
+        "theme": "light",
+        "tonalRamp": [
+          "#1C0300",
+          "#451101",
+          "#742203",
+          "#A63609",
+          "#D1572F",
+          "#F97B53",
+          "#FFB49D",
+          "#FEE9E3"
+        ]
+      },
+      "zone-kitchen-fill": {
+        "role": "tertiary",
+        "displayName": "B 주방 Camp Kitchen Yellow fill",
+        "canonical": "#F2B705",
+        "oklch": "oklch(81.1% 0.166 85.0)",
+        "theme": "light",
+        "tonalRamp": [
+          "#110A00",
+          "#312200",
+          "#553E01",
+          "#7B5C05",
+          "#A47B0B",
+          "#CE9D1A",
+          "#FABF1F",
+          "#FEEDC8"
+        ]
+      },
+      "zone-kitchen-on-fill": {
+        "role": "tertiary",
+        "displayName": "B 주방 Camp Kitchen Yellow on-fill",
+        "canonical": "#152221",
+        "oklch": "oklch(24.0% 0.018 190.0)",
+        "theme": "light",
+        "tonalRamp": [
+          "#030E0D",
+          "#1B2827",
+          "#374544",
+          "#566563",
+          "#778685",
+          "#99A9A7",
+          "#BDCDCC",
+          "#E2F3F1"
+        ]
+      },
+      "zone-kitchen-ink": {
+        "role": "tertiary",
+        "displayName": "B 주방 Camp Kitchen Yellow ink",
+        "canonical": "#8A5F00",
+        "oklch": "oklch(51.8% 0.108 77.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#120900",
+          "#342100",
+          "#583C06",
+          "#815800",
+          "#A6792B",
+          "#CA9C51",
+          "#F0C075",
+          "#FFECCF"
+        ]
+      },
+      "zone-kitchen-edge": {
+        "role": "tertiary",
+        "displayName": "B 주방 Camp Kitchen Yellow edge",
+        "canonical": "#8A5F00",
+        "oklch": "oklch(51.8% 0.108 77.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#120900",
+          "#342100",
+          "#583C06",
+          "#815800",
+          "#A6792B",
+          "#CA9C51",
+          "#F0C075",
+          "#FFECCF"
+        ]
+      },
+      "zone-fire-fill": {
+        "role": "tertiary",
+        "displayName": "C 불·난방 Fire Red fill",
+        "canonical": "#C8102E",
+        "oklch": "oklch(53.0% 0.207 22.3)",
+        "theme": "light",
+        "tonalRamp": [
+          "#1F0002",
+          "#4D000A",
+          "#800018",
+          "#B70427",
+          "#E43845",
+          "#FD7373",
+          "#FDB3AF",
+          "#FEE9E7"
+        ]
+      },
+      "zone-fire-on-fill": {
+        "role": "tertiary",
+        "displayName": "C 불·난방 Fire Red on-fill",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "zone-fire-ink": {
+        "role": "tertiary",
+        "displayName": "C 불·난방 Fire Red ink",
+        "canonical": "#B30E29",
+        "oklch": "oklch(48.9% 0.191 22.1)",
+        "theme": "light",
+        "tonalRamp": [
+          "#1F0002",
+          "#4B020C",
+          "#7E071A",
+          "#B4112A",
+          "#DD434B",
+          "#FE7273",
+          "#FEB3AF",
+          "#FFE9E7"
+        ]
+      },
+      "zone-power-fill": {
+        "role": "tertiary",
+        "displayName": "D 전기·조명 Power Blue fill",
+        "canonical": "#1F5FD1",
+        "oklch": "oklch(51.6% 0.188 261.0)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000827",
+          "#011F5A",
+          "#023995",
+          "#1758C9",
+          "#3B7CF1",
+          "#73A4FB",
+          "#ADCAFD",
+          "#E6EFFE"
+        ]
+      },
+      "zone-power-on-fill": {
+        "role": "tertiary",
+        "displayName": "D 전기·조명 Power Blue on-fill",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "zone-power-ink": {
+        "role": "tertiary",
+        "displayName": "D 전기·조명 Power Blue ink",
+        "canonical": "#1A54BC",
+        "oklch": "oklch(47.5% 0.175 261.1)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000826",
+          "#001E5C",
+          "#043994",
+          "#205AC2",
+          "#427DE9",
+          "#71A4FE",
+          "#ACCAFF",
+          "#E6EFFF"
+        ]
+      },
+      "zone-living-fill": {
+        "role": "tertiary",
+        "displayName": "E 생활 Living Green fill",
+        "canonical": "#0F7B5F",
+        "oklch": "oklch(52.0% 0.100 169.2)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000F09",
+          "#022D21",
+          "#054E3B",
+          "#0C7258",
+          "#369578",
+          "#5DB99A",
+          "#83DFBE",
+          "#C1FEE7"
+        ]
+      },
+      "zone-living-on-fill": {
+        "role": "tertiary",
+        "displayName": "E 생활 Living Green on-fill",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "light",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "zone-living-ink": {
+        "role": "tertiary",
+        "displayName": "E 생활 Living Green ink",
+        "canonical": "#0D6E55",
+        "oklch": "oklch(48.0% 0.092 169.4)",
+        "theme": "light",
+        "tonalRamp": [
+          "#000F09",
+          "#002D21",
+          "#014E3B",
+          "#147258",
+          "#409479",
+          "#65B89C",
+          "#8ADDBF",
+          "#BFFFE7"
+        ]
+      },
+      "band-dark": {
+        "role": "primary",
+        "displayName": "Signboard Petrol Navy (dark)",
+        "canonical": "#15444D",
+        "oklch": "oklch(35.9% 0.052 212.7)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000E12",
+          "#022B32",
+          "#1B4952",
+          "#3C6973",
+          "#5D8B95",
+          "#7FAEB8",
+          "#A3D3DD",
+          "#D1F6FF"
+        ]
+      },
+      "on-band-dark": {
+        "role": "primary",
+        "displayName": "Band White (dark)",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "band-soft-dark": {
+        "role": "primary",
+        "displayName": "Band Mist (dark)",
+        "canonical": "#CFE5E7",
+        "oklch": "oklch(90.6% 0.024 203.4)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#010E10",
+          "#17282A",
+          "#334648",
+          "#526567",
+          "#738789",
+          "#95AAAC",
+          "#B8CED0",
+          "#DDF4F6"
+        ]
+      },
+      "ground-dark": {
+        "role": "neutral",
+        "displayName": "Cool Ground (dark)",
+        "canonical": "#0E1514",
+        "oklch": "oklch(18.8% 0.011 185.6)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#060D0C",
+          "#1F2726",
+          "#3C4443",
+          "#5B6362",
+          "#7C8583",
+          "#9EA7A6",
+          "#C2CBCA",
+          "#E7F1EF"
+        ]
+      },
+      "card-dark": {
+        "role": "neutral",
+        "displayName": "Panel White (dark)",
+        "canonical": "#18211F",
+        "oklch": "oklch(23.8% 0.013 180.0)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#050D0B",
+          "#1E2725",
+          "#3B4442",
+          "#596461",
+          "#7A8582",
+          "#9DA8A5",
+          "#C0CCC9",
+          "#E5F2EF"
+        ]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Trail Ink (dark)",
+        "canonical": "#E7EEEC",
+        "oklch": "oklch(94.3% 0.008 177.3)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#080C0B",
+          "#212625",
+          "#3E4342",
+          "#5D6361",
+          "#7E8482",
+          "#A0A7A5",
+          "#C4CBC9",
+          "#E9F0EE"
+        ]
+      },
+      "ink-soft-dark": {
+        "role": "neutral",
+        "displayName": "Soft Ink (dark)",
+        "canonical": "#B8C4C1",
+        "oklch": "oklch(81.0% 0.014 179.4)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#050D0B",
+          "#1E2725",
+          "#3A4542",
+          "#596461",
+          "#7A8582",
+          "#9CA8A5",
+          "#C0CCC9",
+          "#E5F2EF"
+        ]
+      },
+      "muted-dark": {
+        "role": "neutral",
+        "displayName": "Muted Slate (dark)",
+        "canonical": "#93A19E",
+        "oklch": "oklch(69.7% 0.016 181.6)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#040D0C",
+          "#1C2826",
+          "#394542",
+          "#576462",
+          "#788683",
+          "#9AA9A6",
+          "#BECDCA",
+          "#E3F2EF"
+        ]
+      },
+      "control-dark": {
+        "role": "neutral",
+        "displayName": "Control Slate (dark)",
+        "canonical": "#73827F",
+        "oklch": "oklch(59.3% 0.018 182.3)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#030E0C",
+          "#1B2826",
+          "#384543",
+          "#566562",
+          "#778683",
+          "#99A9A6",
+          "#BDCDCA",
+          "#E2F3EF"
+        ]
+      },
+      "track-dark": {
+        "role": "neutral",
+        "displayName": "Track Grey (dark)",
+        "canonical": "#222D2B",
+        "oklch": "oklch(28.6% 0.016 182.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#040D0C",
+          "#1D2826",
+          "#394543",
+          "#586462",
+          "#798683",
+          "#9BA8A6",
+          "#BFCDCA",
+          "#E4F2EF"
+        ]
+      },
+      "primary-dark": {
+        "role": "primary",
+        "displayName": "Signboard Petrol Navy (action) (dark)",
+        "canonical": "#A9CED2",
+        "oklch": "oklch(82.6% 0.040 204.5)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000E10",
+          "#072B2E",
+          "#27484C",
+          "#46686C",
+          "#678A8D",
+          "#89ADB1",
+          "#ACD1D5",
+          "#D1F7FB"
+        ]
+      },
+      "on-primary-dark": {
+        "role": "primary",
+        "displayName": "On Primary (dark)",
+        "canonical": "#0B1F22",
+        "oklch": "oklch(22.4% 0.026 208.2)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000E11",
+          "#15292C",
+          "#314649",
+          "#506669",
+          "#71878B",
+          "#93AAAE",
+          "#B6CED2",
+          "#DBF4F8"
+        ]
+      },
+      "tonal-dark": {
+        "role": "secondary",
+        "displayName": "Tonal Teal Wash (dark)",
+        "canonical": "#21393C",
+        "oklch": "oklch(32.6% 0.030 205.8)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000E10",
+          "#11292C",
+          "#2E474A",
+          "#4D666A",
+          "#6E888B",
+          "#90ABAE",
+          "#B3CFD3",
+          "#D8F5F8"
+        ]
+      },
+      "on-tonal-dark": {
+        "role": "secondary",
+        "displayName": "On Tonal (dark)",
+        "canonical": "#CFE5E7",
+        "oklch": "oklch(90.6% 0.024 203.4)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#010E10",
+          "#17282A",
+          "#334648",
+          "#526567",
+          "#738789",
+          "#95AAAC",
+          "#B8CED0",
+          "#DDF4F6"
+        ]
+      },
+      "later-ink-dark": {
+        "role": "neutral",
+        "displayName": "Later Stamp Ink (dark)",
+        "canonical": "#A9CED2",
+        "oklch": "oklch(82.6% 0.040 204.5)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000E10",
+          "#072B2E",
+          "#27484C",
+          "#46686C",
+          "#678A8D",
+          "#89ADB1",
+          "#ACD1D5",
+          "#D1F7FB"
+        ]
+      },
+      "no-ink-dark": {
+        "role": "neutral",
+        "displayName": "No Stamp Ink (dark)",
+        "canonical": "#93A19E",
+        "oklch": "oklch(69.7% 0.016 181.6)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#040D0C",
+          "#1C2826",
+          "#394542",
+          "#576462",
+          "#788683",
+          "#9AA9A6",
+          "#BECDCA",
+          "#E3F2EF"
+        ]
+      },
+      "trunk-in-dark": {
+        "role": "neutral",
+        "displayName": "Trunk Interior (dark)",
+        "canonical": "#0A1010",
+        "oklch": "oklch(16.7% 0.009 196.3)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#070C0C",
+          "#202726",
+          "#3C4444",
+          "#5B6363",
+          "#7C8484",
+          "#9FA7A7",
+          "#C3CBCB",
+          "#E8F1F0"
+        ]
+      },
+      "car-body-dark": {
+        "role": "neutral",
+        "displayName": "Car Body (dark)",
+        "canonical": "#2A3533",
+        "oklch": "oklch(31.8% 0.015 183.1)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#050D0C",
+          "#1D2826",
+          "#394543",
+          "#586462",
+          "#798583",
+          "#9BA8A6",
+          "#BFCDCA",
+          "#E4F2EF"
+        ]
+      },
+      "car-stroke-dark": {
+        "role": "neutral",
+        "displayName": "Car Line (dark)",
+        "canonical": "#93A19E",
+        "oklch": "oklch(69.7% 0.016 181.6)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#040D0C",
+          "#1C2826",
+          "#394542",
+          "#576462",
+          "#788683",
+          "#9AA9A6",
+          "#BECDCA",
+          "#E3F2EF"
+        ]
+      },
+      "taillight-dark": {
+        "role": "neutral",
+        "displayName": "Taillight Red (dark)",
+        "canonical": "#FF5A6A",
+        "oklch": "oklch(69.1% 0.200 18.5)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#1F0003",
+          "#4B0210",
+          "#7E0721",
+          "#B41134",
+          "#E03C52",
+          "#FE727B",
+          "#FDB2B3",
+          "#FFE8E8"
+        ]
+      },
+      "shadow-dark": {
+        "role": "neutral",
+        "displayName": "Shadow (dark)",
+        "canonical": "#000000",
+        "oklch": "oklch(0.0% 0.000 0.0)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "zone-home-fill-dark": {
+        "role": "tertiary",
+        "displayName": "A 주거 Site Orange fill (dark)",
+        "canonical": "#E05A1F",
+        "oklch": "oklch(63.4% 0.180 40.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#1B0400",
+          "#431301",
+          "#712603",
+          "#A23B09",
+          "#D75111",
+          "#FB7A48",
+          "#FEB59B",
+          "#FFE9E2"
+        ]
+      },
+      "zone-home-on-fill-dark": {
+        "role": "tertiary",
+        "displayName": "A 주거 Site Orange on-fill (dark)",
+        "canonical": "#0E1514",
+        "oklch": "oklch(18.8% 0.011 185.6)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#060D0C",
+          "#1F2726",
+          "#3C4443",
+          "#5B6362",
+          "#7C8583",
+          "#9EA7A6",
+          "#C2CBCA",
+          "#E7F1EF"
+        ]
+      },
+      "zone-home-ink-dark": {
+        "role": "tertiary",
+        "displayName": "A 주거 Site Orange ink (dark)",
+        "canonical": "#FF9461",
+        "oklch": "oklch(77.0% 0.145 45.4)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#190500",
+          "#411600",
+          "#6E2A01",
+          "#9E4104",
+          "#C7612C",
+          "#EE8552",
+          "#FEB695",
+          "#FFE9E0"
+        ]
+      },
+      "zone-kitchen-fill-dark": {
+        "role": "tertiary",
+        "displayName": "B 주방 Camp Kitchen Yellow fill (dark)",
+        "canonical": "#F2B705",
+        "oklch": "oklch(81.1% 0.166 85.0)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#110A00",
+          "#312200",
+          "#553E01",
+          "#7B5C05",
+          "#A47B0B",
+          "#CE9D1A",
+          "#FABF1F",
+          "#FEEDC8"
+        ]
+      },
+      "zone-kitchen-on-fill-dark": {
+        "role": "tertiary",
+        "displayName": "B 주방 Camp Kitchen Yellow on-fill (dark)",
+        "canonical": "#152221",
+        "oklch": "oklch(24.0% 0.018 190.0)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#030E0D",
+          "#1B2827",
+          "#374544",
+          "#566563",
+          "#778685",
+          "#99A9A7",
+          "#BDCDCC",
+          "#E2F3F1"
+        ]
+      },
+      "zone-kitchen-ink-dark": {
+        "role": "tertiary",
+        "displayName": "B 주방 Camp Kitchen Yellow ink (dark)",
+        "canonical": "#F5C842",
+        "oklch": "oklch(85.0% 0.153 89.6)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#100A00",
+          "#2F2302",
+          "#523F05",
+          "#775E0C",
+          "#9E7E15",
+          "#C99F0D",
+          "#F0C33C",
+          "#FFEDC1"
+        ]
+      },
+      "zone-fire-fill-dark": {
+        "role": "tertiary",
+        "displayName": "C 불·난방 Fire Red fill (dark)",
+        "canonical": "#E0283F",
+        "oklch": "oklch(58.8% 0.215 21.4)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#1E0002",
+          "#4C010C",
+          "#7F031A",
+          "#B6092B",
+          "#E73144",
+          "#FC7476",
+          "#FFB2AF",
+          "#FEE9E7"
+        ]
+      },
+      "zone-fire-on-fill-dark": {
+        "role": "tertiary",
+        "displayName": "C 불·난방 Fire Red on-fill (dark)",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "zone-fire-ink-dark": {
+        "role": "tertiary",
+        "displayName": "C 불·난방 Fire Red ink (dark)",
+        "canonical": "#FF7A85",
+        "oklch": "oklch(73.7% 0.162 16.8)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#1F0003",
+          "#4B0212",
+          "#7D0725",
+          "#A92B3F",
+          "#D1515F",
+          "#F97580",
+          "#FDB2B5",
+          "#FFE8E9"
+        ]
+      },
+      "zone-power-fill-dark": {
+        "role": "tertiary",
+        "displayName": "D 전기·조명 Power Blue fill (dark)",
+        "canonical": "#2F6BD8",
+        "oklch": "oklch(55.0% 0.179 261.1)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000827",
+          "#011F5A",
+          "#023896",
+          "#1E59C4",
+          "#407DEC",
+          "#73A4FB",
+          "#ADCAFD",
+          "#E6EFFE"
+        ]
+      },
+      "zone-power-on-fill-dark": {
+        "role": "tertiary",
+        "displayName": "D 전기·조명 Power Blue on-fill (dark)",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#A5A5A5",
+          "#C9C9C9",
+          "#EEEEEE"
+        ]
+      },
+      "zone-power-ink-dark": {
+        "role": "tertiary",
+        "displayName": "D 전기·조명 Power Blue ink (dark)",
+        "canonical": "#8DB4FF",
+        "oklch": "oklch(77.1% 0.116 262.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#00062B",
+          "#031E5C",
+          "#1F3E7F",
+          "#3D5FA3",
+          "#5D81C8",
+          "#7EA4EE",
+          "#ADCAFF",
+          "#E7EFFE"
+        ]
+      },
+      "zone-living-fill-dark": {
+        "role": "tertiary",
+        "displayName": "E 생활 Living Green fill (dark)",
+        "canonical": "#14A07A",
+        "oklch": "oklch(62.9% 0.124 167.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000F09",
+          "#022D20",
+          "#064E3A",
+          "#0F7256",
+          "#199874",
+          "#43BE96",
+          "#6DE3BA",
+          "#C1FEE5"
+        ]
+      },
+      "zone-living-on-fill-dark": {
+        "role": "tertiary",
+        "displayName": "E 생활 Living Green on-fill (dark)",
+        "canonical": "#0E1514",
+        "oklch": "oklch(18.8% 0.011 185.6)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#060D0C",
+          "#1F2726",
+          "#3C4443",
+          "#5B6362",
+          "#7C8583",
+          "#9EA7A6",
+          "#C2CBCA",
+          "#E7F1EF"
+        ]
+      },
+      "zone-living-ink-dark": {
+        "role": "tertiary",
+        "displayName": "E 생활 Living Green ink (dark)",
+        "canonical": "#4FD6AE",
+        "oklch": "oklch(79.2% 0.131 169.9)",
+        "theme": "dark",
+        "tonalRamp": [
+          "#000F09",
+          "#002D21",
+          "#014E3C",
+          "#057259",
+          "#0C9977",
+          "#30BF98",
+          "#60E5BC",
+          "#BFFFE7"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Card question and ending headline. Display component: lineHeight round(size*1.25), tracking -2% of size."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Band titles and poster sheet trip name."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings, band progress count, large-button labels."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Explanations and band secondary lines. Sans component: lineHeight round(size*1.5), tracking -1% of size."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Input labels and list section labels in soft ink; never uppercase, never a kicker above a heading."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Row notes, trunk caption, poster footer and cell names; smallest text in the app."
+      },
+      "stamp": {
+        "displayName": "Stamp",
+        "purpose": "Stamp words only (챙김! / 나중에 / 필요 없어)."
+      },
+      "post-plaque": {
+        "displayName": "Post Plaque",
+        "purpose": "Post code on the deck card plaque."
+      },
+      "post-code": {
+        "displayName": "Post Code",
+        "purpose": "Post code on md/sm markers (sm renders at 12px)."
+      }
+    },
+    "fonts": {
+      "family": "Pretendard",
+      "files": {
+        "400": "Pretendard-Regular",
+        "500": "Pretendard-Medium",
+        "600": "Pretendard-SemiBold",
+        "700": "Pretendard-Bold",
+        "800": "Pretendard-ExtraBold"
+      },
+      "resolver": "familyFor(weight) in src/theme/tokens.ts; fontWeight is stripped from styles."
+    },
+    "iconSizes": {
+      "set": "MaterialCommunityIcons",
+      "itemMark": {
+        "card": 120,
+        "row": 20,
+        "cell": 16
+      },
+      "buttonIcon": {
+        "md": 20,
+        "lg": 22
+      },
+      "androidSegmentCheck": 18
+    },
+    "cellModule": {
+      "name": "CELL_RATIO",
+      "value": "7 / 3",
+      "purpose": "Shared by trunk boxes (6x5 grid, filled bottom-up) and poster cells (3 columns, 6px gap)."
+    },
+    "touchTargets": {
+      "ios": "44pt",
+      "android": "48dp",
+      "filledButtonMin": "48",
+      "largeButton": "56",
+      "listRowMin": "touch + 8"
+    },
+    "layout": {
+      "maxContentWidth": "420px",
+      "sidePadding": "20px",
+      "bandPadding": "safe-area top + 12, bottom 16"
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "0 8px 18px rgba(14,31,32,0.10)",
+        "platform": "iOS shadowOffset 0/8, radius 18, opacity 0.10; Android elevation 5",
+        "purpose": "Current deck card."
+      },
+      {
+        "name": "sheet-lift",
+        "value": "0 6px 16px rgba(14,31,32,0.08)",
+        "platform": "Android elevation 3",
+        "purpose": "Shareable poster sheet."
+      },
+      {
+        "name": "thumb-lift",
+        "value": "0 2px 4px rgba(14,31,32,0.12)",
+        "platform": "Android elevation 2 (iOS-only component)",
+        "purpose": "iOS segmented selected thumb."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Next card rises (280ms); undo card returns from left (400ms)."
+      },
+      {
+        "name": "ease-in-exit",
+        "value": "cubic-bezier(0.5, 0, 0.9, 0.5)",
+        "purpose": "Card exits, 380ms: 챙김 drops to trunk (y+320, scale 0.12, rotate 6deg); 나중에 lifts (y-140, scale 0.8); 필요 없어 slides left (x -1.2w, rotate -10deg)."
+      },
+      {
+        "name": "stamp-land",
+        "value": "opacity 90ms; scale 2 -> 0.92 (170ms, ease-out cubic) -> 1 (110ms, ease-out quad); card shake 3/-1/0 at 90ms each",
+        "purpose": "Stamp landing with haptic (medium for 챙김, light otherwise) and reply fade-in 220ms."
+      },
+      {
+        "name": "hold",
+        "value": "700ms",
+        "purpose": "Stamp and reply stay readable before exit; kept under reduce motion."
+      },
+      {
+        "name": "box-drop",
+        "value": "360ms cubic-bezier(0.3, 1.4, 0.5, 1)",
+        "purpose": "Newest trunk box falls 40px with slight overshoot."
+      },
+      {
+        "name": "hatch",
+        "value": "560ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Trunk hatch closes at the ending (heavy haptic)."
+      },
+      {
+        "name": "drive-off",
+        "value": "900ms cubic-bezier(0.55, 0, 0.85, 0.4)",
+        "purpose": "Car accelerates off to the right."
+      },
+      {
+        "name": "poster-enter",
+        "value": "FadeInLeft 360ms",
+        "purpose": "Poster screen entrance."
+      },
+      {
+        "name": "reduce-motion",
+        "value": "durations -> 0; card fades out 160ms; stamp and reply held 700ms",
+        "purpose": "Remove movement, keep feedback."
+      }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Signage Band",
+      "kind": "nav",
+      "refersTo": "band",
+      "description": "Navy shell at the top of every screen, painted under the status bar: title plus one secondary line (zone guide or meta).",
+      "html": "<header class=\"ds-band\"><div class=\"ds-band-top\"><span class=\"ds-band-title\">가평 1박</span><span class=\"ds-band-count\">11 / 28</span></div><div class=\"ds-band-zone\"><i class=\"ds-band-swatch\"></i><b>주방 구역</b><span>아이스박스 … 커피</span></div></header>",
+      "css": ".ds-band { background: #0E3B43; color: #FFFFFF; padding: 12px 20px 16px; display: flex; flex-direction: column; gap: 4px; font-family: Pretendard, system-ui, sans-serif; } .ds-band-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; } .ds-band-title { font-size: 22px; font-weight: 700; line-height: 28px; letter-spacing: -0.44px; } .ds-band-count { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-band-zone { display: flex; align-items: center; gap: 8px; font-size: 15px; line-height: 23px; } .ds-band-zone span { color: #B9D3D6; } .ds-band-swatch { width: 12px; height: 12px; border-radius: 3px; background: #F2B705; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single filled action per screen, full width in the thumb zone (챙겼다!, 짐 싸기 시작, 기록하고 마치기).",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z\"/></svg><span>챙겼다!</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 56px; padding: 0 16px; background: #0E3B43; color: #FFFFFF; border: none; border-radius: 12px; font-size: 17px; font-weight: 700; letter-spacing: -0.17px; font-family: Pretendard, system-ui, sans-serif; cursor: pointer; transition: opacity 0.15s; } .ds-btn-primary:hover { opacity: 0.9; } .ds-btn-primary:active { opacity: 0.7; } .ds-btn-primary:focus-visible { outline: 3px solid #1F5FD1; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary answers on the deck (나중에, 필요 없어), paired in a row above the primary.",
+      "html": "<button class=\"ds-btn-outline\">나중에</button>",
+      "css": ".ds-btn-outline { min-height: 48px; padding: 0 16px; background: transparent; color: #152221; border: 1.5px solid #7C8A87; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: Pretendard, system-ui, sans-serif; cursor: pointer; transition: background 0.15s; } .ds-btn-outline:hover { background: rgba(0,0,0,0.04); } .ds-btn-outline:active { opacity: 0.7; } .ds-btn-outline:focus-visible { outline: 3px solid #1F5FD1; outline-offset: 2px; }"
+    },
+    {
+      "name": "Tonal Button",
+      "kind": "button",
+      "refersTo": "button-tonal",
+      "description": "Secondary filled action (이미지로 저장).",
+      "html": "<button class=\"ds-btn-tonal\">이미지로 저장</button>",
+      "css": ".ds-btn-tonal { min-height: 48px; padding: 0 16px; background: #DCE9EA; color: #0E3B43; border: 1.5px solid #7C8A87; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: Pretendard, system-ui, sans-serif; cursor: pointer; } .ds-btn-tonal:hover { filter: brightness(0.97); } .ds-btn-tonal:active { opacity: 0.7; } .ds-btn-tonal:focus-visible { outline: 3px solid #1F5FD1; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Low-emphasis actions: 이전으로, row actions (챙겼다, 넣기, 다시 챙기기).",
+      "html": "<button class=\"ds-btn-text\">이전으로</button>",
+      "css": ".ds-btn-text { min-height: 44px; padding: 0 12px; background: transparent; color: #0E3B43; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; font-family: Pretendard, system-ui, sans-serif; cursor: pointer; } .ds-btn-text:hover { background: rgba(14,59,67,0.06); } .ds-btn-text:active { opacity: 0.7; } .ds-btn-text:focus-visible { outline: 3px solid #1F5FD1; outline-offset: 2px; } .ds-btn-text:disabled { opacity: 0.4; }"
+    },
+    {
+      "name": "Trip Name Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labelled text field on Setup.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">캠핑 이름</span><input class=\"ds-input\" value=\"가평 1박\"></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; font-family: Pretendard, system-ui, sans-serif; } .ds-field-label { font-size: 13px; font-weight: 700; letter-spacing: 0.2px; color: #3E4D4B; } .ds-input { min-height: 52px; padding: 12px 16px; background: #FFFFFF; color: #152221; border: 1.5px solid #7C8A87; border-radius: 12px; font-size: 20px; font-weight: 600; letter-spacing: -0.3px; font-family: Pretendard, system-ui, sans-serif; } .ds-input:focus-visible { outline: 3px solid #0E3B43; outline-offset: 1px; }"
+    },
+    {
+      "name": "Segmented (iOS)",
+      "kind": "chip",
+      "refersTo": "segmented-ios-track",
+      "description": "Native iOS segmented choice for season and nights; Android renders Material 3 segmented buttons instead.",
+      "html": "<div class=\"ds-seg\" role=\"radiogroup\"><button class=\"ds-seg-opt\" aria-checked=\"true\">봄가을</button><button class=\"ds-seg-opt\">여름</button><button class=\"ds-seg-opt\">겨울</button></div>",
+      "css": ".ds-seg { display: flex; padding: 3px; min-height: 44px; background: #E3E8E6; border: 0.5px solid #7C8A87; border-radius: 12px; font-family: Pretendard, system-ui, sans-serif; } .ds-seg-opt { flex: 1; border: none; background: transparent; border-radius: 9px; font-size: 15px; font-weight: 500; color: #3E4D4B; font-family: Pretendard, system-ui, sans-serif; cursor: pointer; } .ds-seg-opt:hover { opacity: 0.8; } .ds-seg-opt[aria-checked=true] { background: #FFFFFF; color: #152221; font-weight: 700; box-shadow: 0 2px 4px rgba(14,31,32,0.12); } .ds-seg-opt:focus-visible { outline: 2px solid #0E3B43; }"
+    },
+    {
+      "name": "Post Marker",
+      "kind": "custom",
+      "refersTo": "post-marker-plaque",
+      "description": "The only ornament. Fill states importance: solid = season-required, zone-ink outline = normal, dashed control = skipped last trip.",
+      "html": "<div class=\"ds-posts\"><span class=\"ds-post ds-post-must\">C-1</span><span class=\"ds-post ds-post-normal\">B-3</span><span class=\"ds-post ds-post-skipped\">E-4</span></div>",
+      "css": ".ds-posts { display: flex; gap: 12px; font-family: Pretendard, system-ui, sans-serif; } .ds-post { display: inline-flex; align-items: center; justify-content: center; min-width: 76px; height: 46px; padding: 0 12px; border-radius: 8px; border: 3px solid; font-size: 22px; font-weight: 800; letter-spacing: 0.2px; font-variant-numeric: tabular-nums; box-sizing: border-box; } .ds-post-must { background: #C8102E; border-color: #C8102E; color: #FFFFFF; } .ds-post-normal { background: #FFFFFF; border-color: #8A5F00; color: #8A5F00; } .ds-post-skipped { background: #FFFFFF; border-color: #7C8A87; border-style: dashed; color: #5C6A68; }"
+    },
+    {
+      "name": "Deck Card with Stamp",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "One question per card: plaque post, 30pt question, zone-ink pictogram, reply line, and the zone-ink stamp.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-card-post\">B-3</span><h2 class=\"ds-card-q\">가스버너는?</h2><div class=\"ds-card-pic\"><svg width=\"120\" height=\"120\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path fill=\"#8A5F00\" d=\"M6 3h4v2h4V3h4v2h1a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-1v1h-3v-1H9v1H6v-1H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1V3m-1 4v3h14V7H5m0 5v7h14v-7H5m2 1h2l3 4h-2l-3-4m6 0h2l3 4h-2l-3-4M7 8a1 1 0 1 1 0 .01M15 8a1 1 0 1 1 0 .01M17 8a1 1 0 1 1 0 .01\"/></svg></div><p class=\"ds-card-say\">맥주는 시원해야지</p><span class=\"ds-stamp\">챙김!</span></article>",
+      "css": ".ds-card { position: relative; display: flex; flex-direction: column; gap: 12px; width: 340px; padding: 16px 20px; background: #FFFFFF; border-radius: 20px; box-shadow: 0 8px 18px rgba(14,31,32,0.10); font-family: Pretendard, system-ui, sans-serif; color: #152221; overflow: hidden; } .ds-card-post { align-self: flex-start; min-width: 76px; height: 46px; display: inline-flex; align-items: center; justify-content: center; border: 3px solid #8A5F00; border-radius: 8px; color: #8A5F00; font-size: 22px; font-weight: 800; box-sizing: border-box; } .ds-card-q { margin: 0; font-size: 30px; line-height: 38px; font-weight: 700; letter-spacing: -0.6px; } .ds-card-pic { display: flex; justify-content: center; min-height: 96px; } .ds-card-say { margin: 0; text-align: center; font-size: 16px; font-weight: 500; color: #3E4D4B; } .ds-stamp { position: absolute; top: 16px; right: 16px; padding: 2px 12px; border: 3px solid #8A5F00; border-radius: 8px; color: #8A5F00; font-size: 26px; line-height: 34px; font-weight: 800; transform: rotate(-10deg); transition: transform 0.28s cubic-bezier(0.22,1,0.36,1); } .ds-card:hover .ds-stamp { transform: rotate(-10deg) scale(1.04); }"
+    },
+    {
+      "name": "Poster Cell",
+      "kind": "custom",
+      "refersTo": "poster-cell-packed",
+      "description": "The 7:3 trunk-box module at poster scale: packed (zone fill), pending (dashed zone ink), left out (control border, struck).",
+      "html": "<div class=\"ds-cells\"><span class=\"ds-cell ds-cell-packed\">텐트</span><span class=\"ds-cell ds-cell-pending\">장갑 · 망치</span><span class=\"ds-cell ds-cell-out\">의자</span></div>",
+      "css": ".ds-cells { display: grid; grid-template-columns: repeat(3, 98px); gap: 6px; font-family: Pretendard, system-ui, sans-serif; } .ds-cell { display: flex; align-items: center; gap: 4px; aspect-ratio: 7 / 3; padding: 0 6px; border-radius: 6px; border: 1.5px solid; font-size: 12px; line-height: 15px; box-sizing: border-box; } .ds-cell-packed { background: #C2410C; border-color: #C2410C; color: #FFFFFF; font-weight: 700; } .ds-cell-pending { background: #FFFFFF; border-color: #0D6E55; border-style: dashed; color: #152221; font-weight: 500; } .ds-cell-out { background: #FFFFFF; border-color: #7C8A87; color: #5C6A68; font-weight: 500; text-decoration: line-through; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Campground Signboard",
+    "overview": "Packing reads like walking a campground with its site map. Every item lives in one of five zones, each with a letter and a colour, and every item carries a post number (\"B-3\") the way a campsite carries a pitch plate. A deep petrol-navy signage band is the shell at the top of every screen and is painted under the status bar; beneath it a cool neutral ground holds white panels. Colour is not decoration here: it is the wayfinding. The same zone colour marks the post, tints the item pictogram, inks the stamp, fills the box that drops into the trunk, and fills the poster cell.\n\nThe surface is calm and dense in the way a park sign is dense: one big question per card, plain Pretendard set in weight and size contrast, one licensed pictogram set, generous thumb-zone controls. Personality comes from motion and reply copy (the stamp landing, the card dropping into the trunk, the car driving off), not from ornament. The post marker is the only ornament in the system.\n\nLight and dark are both first-class (packing the night before; re-checking at the trunk in daylight). Every token has a dark counterpart, and every text pair holds 4.5:1 and every UI boundary 3:1 in both themes. Controls follow each OS natively rather than a shared custom skin.",
+    "keyCharacteristics": [
+      "Navy signage band on every screen, under the status bar, carrying the screen title and the current zone guide.",
+      "Five zone colours, each with fill / on-fill / ink (and an edge where the fill is too weak against white).",
+      "One post marker per item; its fill states importance.",
+      "Pretendard only; hierarchy by weight and size.",
+      "One shared 7:3 cell module for trunk boxes and poster cells.",
+      "Native controls per OS; 44pt iOS / 48dp Android minimum targets."
+    ],
+    "rules": [
+      {
+        "name": "The Zone Is the Colour Rule",
+        "body": "Zone colour appears only where it means \"this item's zone\": post marker, card pictogram, 챙김 stamp, trunk box, poster cell, zone swatch. Never use a zone colour for a generic accent, button, or status.",
+        "section": "colors"
+      },
+      {
+        "name": "The Four Roles Rule",
+        "body": "On a fill use on-fill; on card use ink; a fill sitting on a light surface gets the edge. Never put zone fill text on white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Navy Holds the Frame Rule",
+        "body": "The band is navy on every screen, painted under the status bar, in both themes; it is the only full-bleed colour surface.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight-and-Size Rule",
+        "body": "Hierarchy comes from Pretendard weight and size alone. No second family, no uppercase, no colour-only hierarchy.",
+        "section": "typography"
+      },
+      {
+        "name": "The familyFor Rule",
+        "body": "Never pass a bare fontWeight to a custom face; resolve every weight through `familyFor()` to its static Pretendard file so iOS does not fake bold and Android does not drop it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Shared Cell Rule",
+        "body": "Trunk boxes and poster cells are the same 7:3 module (`CELL_RATIO`). The poster grid is three columns with 6px gaps; the trunk is a 6 by 5 grid filled bottom-up. A packed item is literally the same shape in both places.",
+        "section": "layout"
+      },
+      {
+        "name": "The Objects Float, Signs Don't Rule",
+        "body": "Only things you could hold (the card, the poster) cast shadows. Signage (band, markers, buttons) stays flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do paint the navy band under the status bar at the top of every screen, with title and one secondary line (zone guide or meta).",
+      "Do route every zone use through the four roles: fill, on-fill, ink, edge.",
+      "Do reuse the 7:3 cell module for anything that represents a packed item.",
+      "Do keep one primary (filled navy) button per screen, in the thumb zone.",
+      "Do keep stamp and reply line visible about 700ms even with reduce motion on; remove movement, not feedback.",
+      "Do use tabular numerals for counts, post codes, and dates.",
+      "Do verify text at 4.5:1 and boundaries at 3:1 in both light and dark before adding a colour pair.",
+      "Do use the platform's own control shape (iOS segmented, Material segmented buttons) and touch minimums (44 / 48)."
+    ],
+    "donts": [
+      "Don't add chips, badges, or tags for importance; the post marker's fill already says it.",
+      "Don't add a second ornament beside the post marker, or eyebrow/kicker labels above headings.",
+      "Don't use zone colours for anything that is not that zone.",
+      "Don't set zone fill colours as text on white; use the zone ink.",
+      "Don't introduce a second typeface or let fontWeight reach a custom face without `familyFor()`.",
+      "Don't use item pictograms at sizes other than 120 / 20 / 16, or mix in another icon set.",
+      "Don't drift toward a grey single-tint checklist or an outdoor-brand olive/khaki/kraft palette."
+    ]
+  }
+}

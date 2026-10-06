@@ -44,14 +44,14 @@ export function Sans({ size = 15, color, weight = '400', style, ...rest }: Props
   );
 }
 
-/** 작은 라벨 (자간 넓게) */
+/** 입력 라벨, 섹션 라벨 */
 export function Label({ size = 12, color, weight = '700', style, ...rest }: Props) {
   const { c } = useTheme();
   return (
     <Text
       {...rest}
       style={resolve(
-        { fontSize: size, lineHeight: Math.round(size * 1.4), letterSpacing: 0.6, color: color ?? c.muted },
+        { fontSize: size, lineHeight: Math.round(size * 1.4), letterSpacing: 0.2, color: color ?? c.muted },
         style,
         weight,
       )}

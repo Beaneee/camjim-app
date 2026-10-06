@@ -1,45 +1,75 @@
 import * as Haptics from 'expo-haptics';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import { AccessibilityInfo, StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, {
   Easing,
+  FadeIn,
+  FadeOut,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Band } from '../components/Band';
 import { Button } from '../components/Button';
-import { Card, type StampKind } from '../components/Card';
+import { Card } from '../components/Card';
 import { Trunk } from '../components/Trunk';
 import { Display, Sans } from '../components/Typo';
-import { buildDeck, NIGHTS, PASS_SAY, pick, SEASONS, YES_SAY } from '../data/items';
-import { useStore } from '../store';
+import {
+  buildDeck,
+  importanceOf,
+  ITEM_BY_ID,
+  itemName,
+  LATER_SAY,
+  NO_SAY,
+  pick,
+  shortName,
+  YES_SAY,
+  ZONE_BY_ID,
+  zoneSpan,
+  type Item,
+} from '../data/items';
+import { useStore, type Result } from '../store';
+import { captureFlags } from '../store/capture';
 import { space, useTheme } from '../theme';
 
-const OUT = Easing.bezier(0.3, 0.7, 0.3, 1);
+const OUT = Easing.bezier(0.22, 1, 0.36, 1);   // 지수형 감속
 const IN = Easing.bezier(0.5, 0, 0.9, 0.5);
-const STAGE_H = 290;
+const HOLD = 700;  // 도장과 한마디를 읽을 시간 (동작 줄이기에서도 유지)
+const EXIT = 380;
+
+const STAMP_LABEL: Record<Result, string> = { yes: '챙김', later: '나중에', no: '필요 없어' };
 
 export function DeckScreen() {
   const { c } = useTheme();
+  const insets = useSafeAreaInsets();
   const { state, dispatch } = useStore();
   const { width } = useWindowDimensions();
   const reduced = useReducedMotion();
   const trip = state.trip!;
 
   const { deck } = useMemo(() => buildDeck(trip, state.force), [trip, state.force]);
-  const total = deck.length;
-  const item = deck[state.i];
-  const finished = state.i >= total;
-  const last = state.history[0];
-  const passedLastTime = (id: string) => !!last?.pass.includes(id);
+  const deckIds = useMemo(() => deck.map((it) => it.id), [deck]);
+  const round = state.round;
+  const item: Item | undefined =
+    round === 'main' ? deck[state.i] : round === 'later' ? ITEM_BY_ID[state.queue[state.j]] : undefined;
+  const upcoming: Item[] =
+    round === 'main'
+      ? deck.slice(state.i + 1, state.i + 3)
+      : round === 'later'
+        ? state.queue.slice(state.j + 1, state.j + 3).map((id) => ITEM_BY_ID[id])
+        : [];
+  const finished = round === 'done';
 
-  const counts = useMemo(() => {
-    let yes = 0, pass = 0;
-    for (const k in state.res) state.res[k] === 'yes' ? yes++ : pass++;
-    return { yes, pass };
-  }, [state.res]);
+  const last = state.history[0];
+  const skippedLast = (id: string) => !!last?.no.includes(id);
+  const leftover = deckIds.filter((id) => state.res[id] === 'later').length;
+  const packedZones = useMemo(
+    () => deckIds.filter((id) => state.res[id] === 'yes').map((id) => ITEM_BY_ID[id].zone),
+    [deckIds, state.res],
+  );
 
   // ---- 애니메이션 값 (현재 카드 한 장에만 쓰고, 카드가 바뀔 때 되돌린다)
   const tx = useSharedValue(0);
@@ -49,17 +79,16 @@ export function DeckScreen() {
   const opacity = useSharedValue(1);
   const shake = useSharedValue(0);
   const stampOpacity = useSharedValue(0);
-  const stampScale = useSharedValue(2.2);
+  const stampScale = useSharedValue(2);
   const sayOpacity = useSharedValue(0);
-  const sayY = useSharedValue(6);
 
   const [say, setSay] = useState('');
-  const [stamp, setStamp] = useState<StampKind>('yes');
+  const [stamp, setStamp] = useState<Result>('yes');
   const busy = useRef(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const later = (fn: () => void, ms: number) => { timers.current.push(setTimeout(fn, reduced ? 0 : ms)); };
+  const later = (fn: () => void, ms: number) => { timers.current.push(setTimeout(fn, ms)); };
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
-
+  // 동작 줄이기: 움직임은 없애고, 도장·한마디를 읽을 시간은 남긴다
   const d = (ms: number) => (reduced ? 0 : ms);
 
   const cardStyle = useAnimatedStyle(() => ({
@@ -73,165 +102,220 @@ export function DeckScreen() {
   }));
   const stampStyle = useAnimatedStyle(() => ({
     opacity: stampOpacity.value,
-    transform: [{ rotate: '-14deg' }, { scale: stampScale.value }],
+    transform: [{ rotate: '-10deg' }, { scale: stampScale.value }],
   }));
-  const sayStyle = useAnimatedStyle(() => ({
-    opacity: sayOpacity.value,
-    transform: [{ translateY: sayY.value }],
-  }));
+  const sayStyle = useAnimatedStyle(() => ({ opacity: sayOpacity.value }));
 
-  /** 새 카드가 앞으로 올라오는 모양으로 값 되돌리기 */
   const resetForNext = useCallback((mode: 'rise' | 'backIn') => {
     stampOpacity.value = 0;
-    stampScale.value = 2.2;
+    stampScale.value = 2;
     sayOpacity.value = 0;
-    sayY.value = 6;
     shake.value = 0;
     setSay('');
     if (mode === 'rise') {
       tx.value = 0; rot.value = 0;
-      ty.value = 24; scale.value = 0.94; opacity.value = 0.7;
-      ty.value = withTiming(0, { duration: d(260), easing: OUT });
-      scale.value = withTiming(1, { duration: d(260), easing: OUT });
-      opacity.value = withTiming(1, { duration: d(260) });
+      ty.value = reduced ? 0 : 16; scale.value = reduced ? 1 : 0.95; opacity.value = reduced ? 1 : 0.75;
+      ty.value = withTiming(0, { duration: d(280), easing: OUT });
+      scale.value = withTiming(1, { duration: d(280), easing: OUT });
+      opacity.value = withTiming(1, { duration: d(280), easing: OUT });
     } else {
       ty.value = 0; scale.value = 1;
-      tx.value = -width * 0.8; rot.value = -8; opacity.value = 0;
+      tx.value = reduced ? 0 : -width * 0.8; rot.value = reduced ? 0 : -8; opacity.value = reduced ? 1 : 0;
       tx.value = withTiming(0, { duration: d(400), easing: OUT });
       rot.value = withTiming(0, { duration: d(400), easing: OUT });
-      opacity.value = withTiming(1, { duration: d(400) });
+      opacity.value = withTiming(1, { duration: d(400), easing: OUT });
     }
   }, [width, reduced]);
 
-  const act = (kind: StampKind) => {
+  const act = (kind: Result) => {
     if (busy.current || !item) return;
     busy.current = true;
 
-    // 1) 도장 쾅 + 흔들림 + 진동 + 한마디
+    // 1) 도장 + 흔들림 + 진동 + 한마디
     setStamp(kind);
     const line =
       kind === 'yes'
-        ? passedLastTime(item.id) ? '지난번엔 안 챙겼는데, 이번엔 챙기네' : item.say ?? pick(YES_SAY)
-        : passedLastTime(item.id) ? '지난번에도 패스했지' : pick(PASS_SAY);
+        ? skippedLast(item.id) ? '지난번엔 뺐는데, 이번엔 챙기네' : item.say ?? pick(YES_SAY)
+        : kind === 'later'
+          ? pick(LATER_SAY)
+          : skippedLast(item.id) ? '지난번에도 뺐지' : pick(NO_SAY);
     setSay(line);
+    AccessibilityInfo.announceForAccessibility(`${itemName(item)}, ${STAMP_LABEL[kind]}. ${line}`);
 
     stampOpacity.value = withTiming(1, { duration: d(90) });
-    stampScale.value = withSequence(
-      withTiming(0.92, { duration: d(170), easing: Easing.out(Easing.cubic) }),
-      withTiming(1, { duration: d(110), easing: Easing.out(Easing.quad) }),
-    );
-    shake.value = withSequence(
-      withTiming(3, { duration: d(90) }),
-      withTiming(-1, { duration: d(90) }),
-      withTiming(0, { duration: d(90) }),
-    );
-    sayOpacity.value = withTiming(1, { duration: d(250) });
-    sayY.value = withTiming(0, { duration: d(250) });
+    stampScale.value = reduced
+      ? 1
+      : withSequence(
+          withTiming(0.92, { duration: 170, easing: Easing.out(Easing.cubic) }),
+          withTiming(1, { duration: 110, easing: Easing.out(Easing.quad) }),
+        );
+    if (!reduced) {
+      shake.value = withSequence(withTiming(3, { duration: 90 }), withTiming(-1, { duration: 90 }), withTiming(0, { duration: 90 }));
+    }
+    sayOpacity.value = withTiming(1, { duration: d(220) });
     Haptics.impactAsync(kind === 'yes' ? Haptics.ImpactFeedbackStyle.Medium : Haptics.ImpactFeedbackStyle.Light).catch(() => {});
 
-    // 2) 카드 날아가기 (챙김: 트렁크로 쪼그라들며 떨어짐, 패스: 왼쪽으로)
+    // 2) 카드 내보내기: 챙김은 트렁크로 떨어지고, 나중에는 위로 비켜 두고, 필요 없어는 왼쪽으로
     later(() => {
-      if (kind === 'yes') {
-        ty.value = withTiming(STAGE_H * 0.75, { duration: d(420), easing: IN });
-        scale.value = withTiming(0.12, { duration: d(420), easing: IN });
-        rot.value = withTiming(6, { duration: d(420), easing: IN });
+      if (reduced) {
+        opacity.value = withTiming(0, { duration: 160 });
+      } else if (kind === 'yes') {
+        ty.value = withTiming(320, { duration: EXIT, easing: IN });
+        scale.value = withTiming(0.12, { duration: EXIT, easing: IN });
+        rot.value = withTiming(6, { duration: EXIT, easing: IN });
+        opacity.value = withTiming(0, { duration: EXIT - 40 });
+      } else if (kind === 'later') {
+        ty.value = withTiming(-140, { duration: EXIT, easing: IN });
+        scale.value = withTiming(0.8, { duration: EXIT, easing: IN });
+        opacity.value = withTiming(0, { duration: EXIT - 40 });
       } else {
-        tx.value = withTiming(-width * 1.2, { duration: d(420), easing: IN });
-        rot.value = withTiming(-10, { duration: d(420), easing: IN });
+        tx.value = withTiming(-width * 1.2, { duration: EXIT, easing: IN });
+        rot.value = withTiming(-10, { duration: EXIT, easing: IN });
+        opacity.value = withTiming(0, { duration: EXIT - 40 });
       }
-      opacity.value = withTiming(0, { duration: d(380) });
-
-      // 3) 상태 넘기고 다음 카드 올리기
       later(() => {
-        dispatch({ type: 'answer', id: item.id, result: kind });
-        dispatch({ type: 'advance' });
+        dispatch({ type: 'answer', id: item.id, result: kind, deckIds });
         resetForNext('rise');
         busy.current = false;
-      }, 420);
-    }, 800);
+      }, reduced ? 170 : EXIT);
+    }, HOLD);
   };
 
+  const canUndo = !finished && (round === 'later' || state.i > 0);
   const undo = () => {
-    if (busy.current || state.i === 0) return;
-    const prev = deck[state.i - 1];
-    dispatch({ type: 'undo', id: prev.id });
+    if (busy.current || !canUndo) return;
+    dispatch({ type: 'undo', deckIds });
     resetForNext('backIn');
   };
 
+  // ---- 엔딩: 버튼이 빠지고, 차가 가운데로 커진 뒤 문이 닫히고 출발 → 포스터
   const [closed, setClosed] = useState(false);
   const [driving, setDriving] = useState(false);
   useEffect(() => {
     if (!finished) { setClosed(false); setDriving(false); return; }
     busy.current = true;
+    if (captureFlags.hold) return; // 캡처 모드: 엔딩 장면(문 열린 트렁크)에서 멈춘다
     later(() => {
       setClosed(true);
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy).catch(() => {});
       later(() => {
         setDriving(true);
-        later(() => { busy.current = false; dispatch({ type: 'poster' }); }, 950);
-      }, 650);
-    }, 500);
+        later(() => { busy.current = false; dispatch({ type: 'poster' }); }, reduced ? 400 : 950);
+      }, reduced ? 500 : 700);
+    }, reduced ? 600 : 650);
   }, [finished]);
 
+  // ---- 안내판 띠: 지금 구역과 그 구역의 처음·끝 짐
+  const zone = item ? ZONE_BY_ID[item.zone] : null;
+  const span = zone ? zoneSpan(deck, zone.id) : null;
+  const total = deck.length;
+
   return (
-    <View style={styles.wrap}>
-      <View style={styles.top}>
-        <View>
-          <Display size={22}>{trip.name}</Display>
-          <Sans size={12} color={c.muted}>{SEASONS[trip.season]} · {NIGHTS[trip.nights]}</Sans>
+    <View style={styles.flex}>
+      <Band>
+        <View style={styles.bandTop}>
+          <Display size={22} color={c.onBand} numberOfLines={1} style={styles.flexShrink}>
+            {trip.name}
+          </Display>
+          <Sans size={17} weight="700" color={c.onBand} style={styles.num} accessibilityLabel={progressLabel()}>
+            {progressText()}
+          </Sans>
         </View>
-        <Sans size={14} color={c.inkSoft} style={styles.count}>
-          <Sans size={14} style={styles.countBold}>{Math.min(state.i + 1, total)}</Sans> / {total}
-        </Sans>
-      </View>
+        {round === 'later' ? (
+          <Sans size={15} weight="600" color={c.bandSoft}>나중에로 넘긴 짐 {state.queue.length}개, 트렁크 닫기 전에 다시 볼게요</Sans>
+        ) : zone && span ? (
+          <View style={styles.zoneLine}>
+            <View style={[styles.zoneSwatch, { backgroundColor: c.zones[zone.id].fill }]} />
+            <Sans size={15} weight="700" color={c.onBand}>{zone.name} 구역</Sans>
+            <Sans size={15} color={c.bandSoft} numberOfLines={1} style={styles.flexShrink}>
+              {span.count > 1 ? `${shortName(span.first.q)} … ${shortName(span.last.q)}` : shortName(span.first.q)}
+            </Sans>
+          </View>
+        ) : (
+          <Sans size={15} weight="600" color={c.bandSoft}>트렁크 닫는 중</Sans>
+        )}
+      </Band>
 
-      <View style={styles.tally}>
-        <View style={styles.tallyItem}><View style={[styles.dot, { backgroundColor: c.olive }]} /><Sans size={12.5} color={c.muted}>챙김 {counts.yes}</Sans></View>
-        <View style={styles.tallyItem}><View style={[styles.dot, styles.dotPass, { backgroundColor: c.line, borderColor: c.muted }]} /><Sans size={12.5} color={c.muted}>패스 {counts.pass}</Sans></View>
-      </View>
+      <View style={[styles.body, { paddingBottom: insets.bottom + space.sm }]}>
+        {finished ? (
+          <Animated.View entering={FadeIn.duration(d(300))} style={styles.finale}>
+            <Display size={30} style={styles.center}>{leftover ? `${leftover}개 빼고 다 실었다` : '짐 다 실었다!'}</Display>
+            <Sans size={15} color={c.inkSoft} style={styles.center}>
+              {leftover ? '트렁크 닫고, 남은 짐은 다음 화면에서 볼게요' : '트렁크 닫고 출발할게요'}
+            </Sans>
+            <Trunk zones={packedZones} total={total} closed={closed} driving={driving} hero />
+          </Animated.View>
+        ) : (
+          <>
+            <View style={styles.stage}>
+              {upcoming[1] ? (
+                <Card key={upcoming[1].id + '-2'} item={upcoming[1]} season={trip.season}
+                  importance={importanceOf(upcoming[1], trip.season, skippedLast(upcoming[1].id))} dim="next2" />
+              ) : null}
+              {upcoming[0] ? (
+                <Card key={upcoming[0].id + '-1'} item={upcoming[0]} season={trip.season}
+                  importance={importanceOf(upcoming[0], trip.season, skippedLast(upcoming[0].id))} dim="next" />
+              ) : null}
+              {item ? (
+                <Card
+                  key={item.id + round}
+                  item={item}
+                  season={trip.season}
+                  importance={importanceOf(item, trip.season, skippedLast(item.id))}
+                  say={say}
+                  stamp={stamp}
+                  style={cardStyle}
+                  stampStyle={stampStyle}
+                  sayStyle={sayStyle}
+                />
+              ) : null}
+            </View>
 
-      <View style={styles.stage}>
-        {finished ? <Display size={22} color={c.inkSoft} style={styles.done}>짐 다 실었다!</Display> : null}
-        {deck[state.i + 2] ? <Card key={deck[state.i + 2].id} item={deck[state.i + 2]} season={trip.season} dim="next2" /> : null}
-        {deck[state.i + 1] ? <Card key={deck[state.i + 1].id} item={deck[state.i + 1]} season={trip.season} dim="next" /> : null}
-        {item ? (
-          <Card
-            key={item.id}
-            item={item}
-            season={trip.season}
-            lastPassed={passedLastTime(item.id)}
-            say={say}
-            stamp={stamp}
-            style={cardStyle}
-            stampStyle={stampStyle}
-            sayStyle={sayStyle}
-          />
-        ) : null}
-      </View>
+            <Animated.View exiting={FadeOut.duration(d(200))} style={styles.actions}>
+              <View style={styles.secondaryRow}>
+                <Button title="나중에" icon="clock-outline" style={styles.flex} onPress={() => act('later')} />
+                <Button title="필요 없어" icon="close" style={styles.flex} onPress={() => act('no')} />
+              </View>
+              <Button title="챙겼다!" icon="check-bold" variant="primary" size="lg" onPress={() => act('yes')} />
+              <Button title="이전으로" icon="undo" variant="text" disabled={!canUndo} onPress={undo} />
+            </Animated.View>
 
-      <View style={styles.actions}>
-        <Button title="이번엔 패스" style={styles.pass} disabled={finished} onPress={() => act('pass')} />
-        <Button title="챙겼다!" variant="primary" size="lg" style={styles.yes} disabled={finished} onPress={() => act('yes')} />
+            <Trunk zones={packedZones} total={total} />
+          </>
+        )}
       </View>
-      <Button title="이전으로" variant="link" disabled={state.i === 0 || finished} onPress={undo} />
-
-      <Trunk yes={counts.yes} total={total} closed={closed} driving={driving} />
     </View>
   );
+
+  function progressText() {
+    if (round === 'later') return `${state.j + 1} / ${state.queue.length}`;
+    return `${Math.min(state.i + 1, total)} / ${total}`;
+  }
+  function progressLabel() {
+    if (round === 'later') return `나중에 넘긴 짐 ${state.queue.length}개 중 ${state.j + 1}번째`;
+    return `${total}장 중 ${Math.min(state.i + 1, total)}번째`;
+  }
 }
 
 const styles = StyleSheet.create({
-  wrap: { flex: 1, gap: space.lg },
-  top: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', gap: space.md },
-  count: { fontVariant: ['tabular-nums'], fontWeight: '500' },
-  countBold: { fontWeight: '700' },
-  tally: { flexDirection: 'row', gap: 14, marginTop: -8 },
-  tallyItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  dot: { width: 8, height: 8, borderRadius: 4 },
-  dotPass: { width: 6, height: 6, borderWidth: 1 },
-  stage: { height: STAGE_H, marginBottom: 26 }, // 뒤 카드가 삐져나올 자리
-  done: { position: 'absolute', alignSelf: 'center', top: 120 },
-  actions: { flexDirection: 'row', gap: 10 },
-  pass: { flex: 1 },
-  yes: { flex: 1.6 },
+  flex: { flex: 1 },
+  flexShrink: { flexShrink: 1 },
+  num: { fontVariant: ['tabular-nums'] },
+  center: { textAlign: 'center' },
+  bandTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.md },
+  zoneLine: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
+  zoneSwatch: { width: 12, height: 12, borderRadius: 3 },
+  body: {
+    flex: 1,
+    width: '100%',
+    maxWidth: 420,
+    alignSelf: 'center',
+    paddingHorizontal: space.xl,
+    paddingTop: space.lg,
+    gap: space.md,
+  },
+  stage: { flex: 1, minHeight: 230, marginBottom: 30 },
+  actions: { gap: space.sm },
+  secondaryRow: { flexDirection: 'row', gap: space.sm },
+  finale: { flex: 1, justifyContent: 'center', gap: space.sm },
 });

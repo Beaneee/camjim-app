@@ -1,58 +1,107 @@
 import type { TextStyle } from 'react-native';
-// 프로토타입(HTML v2)에서 가져온 색 토큰. 라이트/다크 두 벌.
+
+/**
+ * 캠핑장 안내판 팔레트.
+ * 남청 안내판 띠가 뼈대, 바탕은 차분한 중립색, 다섯 구역 색이 분류·진행·도장을 맡는다.
+ * 모든 글자 쌍은 4.5:1, 컨트롤 경계는 3:1 이상으로 맞췄다.
+ */
+export type ZoneId = 'home' | 'kitchen' | 'fire' | 'power' | 'living';
+
+export type ZoneColors = {
+  fill: string;   // 말뚝, 트렁크 상자, 포스터 칸의 바탕
+  onFill: string; // fill 위 글자
+  ink: string;    // 흰 카드 위 글자·도장·아이콘
+  edge: string;   // 밝은 바탕 위에서 fill 테두리 (노랑처럼 대비가 약한 색을 위해)
+};
+
 export type Palette = {
-  paper: string;      // 화면 바닥
-  card: string;       // 카드, 입력창
-  ink: string;        // 본문 글자
-  inkSoft: string;    // 보조 글자
-  muted: string;      // 힌트, 캡션
-  line: string;       // 테두리, 진행 바 바닥
-  olive: string;      // 주 색(챙겼다 버튼, 진행)
-  oliveInk: string;   // olive 위 글자
-  oliveSoft: string;  // olive 연한 배경
-  stamp: string;      // 도장 빨강
-  stampPass: string;  // 패스 도장 회색
-  trunkIn: string;    // 트렁크 내부
-  shadow: string;     // 그림자 색
+  band: string;       // 안내판 띠 (화면 위쪽 뼈대)
+  onBand: string;     // 띠 위 주 글자
+  bandSoft: string;   // 띠 위 보조 글자
+  ground: string;     // 화면 바탕
+  card: string;       // 카드, 입력칸, 시트
+  ink: string;        // 본문
+  inkSoft: string;    // 보조 본문
+  muted: string;      // 캡션 (12pt 이상에서만)
+  control: string;    // 입력칸·선택 버튼 경계
+  track: string;      // iOS 분할 선택 트랙
+  primary: string;    // 주 버튼
+  onPrimary: string;
+  tonal: string;      // 보조 버튼·선택된 분할 바탕
+  onTonal: string;
+  laterInk: string;   // '나중에' 도장
+  noInk: string;      // '필요 없어' 도장
+  trunkIn: string;    // 트렁크 안
+  body: string;       // 차체
+  bodyStroke: string; // 차체 선
+  taillight: string;  // 후미등 (도장 색과 분리)
+  shadow: string;
+  zones: Record<ZoneId, ZoneColors>;
 };
 
 export const light: Palette = {
-  paper: '#f3f4ec',
-  card: '#fffffb',
-  ink: '#26291f',
-  inkSoft: '#5a5e4f',
-  muted: '#8b8f7e',
-  line: '#d9dccc',
-  olive: '#5c6b3c',
-  oliveInk: '#ffffff',
-  oliveSoft: '#e6ead8',
-  stamp: '#c93a2e',
-  stampPass: '#8b8f7e',
-  trunkIn: '#3a3f30',
-  shadow: '#26291f',
+  band: '#0E3B43',
+  onBand: '#FFFFFF',
+  bandSoft: '#B9D3D6',
+  ground: '#F3F5F4',
+  card: '#FFFFFF',
+  ink: '#152221',
+  inkSoft: '#3E4D4B',
+  muted: '#5C6A68',
+  control: '#7C8A87',
+  track: '#E3E8E6',
+  primary: '#0E3B43',
+  onPrimary: '#FFFFFF',
+  tonal: '#DCE9EA',
+  onTonal: '#0E3B43',
+  laterInk: '#0E3B43',
+  noInk: '#5C6A68',
+  trunkIn: '#1E2B2C',
+  body: '#FFFFFF',
+  bodyStroke: '#152221',
+  taillight: '#D7263D',
+  shadow: '#0E1F20',
+  zones: {
+    home: { fill: '#C2410C', onFill: '#FFFFFF', ink: '#B23A0A', edge: '#C2410C' },
+    kitchen: { fill: '#F2B705', onFill: '#152221', ink: '#8A5F00', edge: '#8A5F00' },
+    fire: { fill: '#C8102E', onFill: '#FFFFFF', ink: '#B30E29', edge: '#C8102E' },
+    power: { fill: '#1F5FD1', onFill: '#FFFFFF', ink: '#1A54BC', edge: '#1F5FD1' },
+    living: { fill: '#0F7B5F', onFill: '#FFFFFF', ink: '#0D6E55', edge: '#0F7B5F' },
+  },
 };
 
 export const dark: Palette = {
-  paper: '#1b1d16',
-  card: '#262a1f',
-  ink: '#e8e9dc',
-  inkSoft: '#b6b9a8',
-  muted: '#858978',
-  line: '#3a3f30',
-  olive: '#8a9c5c',
-  oliveInk: '#161810',
-  oliveSoft: '#2f3625',
-  stamp: '#e2544a',
-  stampPass: '#9a9e8c',
-  trunkIn: '#101209',
+  band: '#15444D',
+  onBand: '#FFFFFF',
+  bandSoft: '#CFE5E7',
+  ground: '#0E1514',
+  card: '#18211F',
+  ink: '#E7EEEC',
+  inkSoft: '#B8C4C1',
+  muted: '#93A19E',
+  control: '#73827F',
+  track: '#222D2B',
+  primary: '#A9CED2',
+  onPrimary: '#0B1F22',
+  tonal: '#21393C',
+  onTonal: '#CFE5E7',
+  laterInk: '#A9CED2',
+  noInk: '#93A19E',
+  trunkIn: '#0A1010',
+  body: '#2A3533',
+  bodyStroke: '#93A19E',
+  taillight: '#FF5A6A',
   shadow: '#000000',
+  zones: {
+    home: { fill: '#E05A1F', onFill: '#0E1514', ink: '#FF9461', edge: '#E05A1F' },
+    kitchen: { fill: '#F2B705', onFill: '#152221', ink: '#F5C842', edge: '#F2B705' },
+    fire: { fill: '#E0283F', onFill: '#FFFFFF', ink: '#FF7A85', edge: '#E0283F' },
+    power: { fill: '#2F6BD8', onFill: '#FFFFFF', ink: '#8DB4FF', edge: '#2F6BD8' },
+    living: { fill: '#14A07A', onFill: '#0E1514', ink: '#4FD6AE', edge: '#14A07A' },
+  },
 };
 
-// 트렁크에 쌓이는 짐 상자 색. 어두운 트렁크 내부 위라 테마와 무관.
-export const boxColors = ['#8a9c5c', '#c9a66b', '#b8654a', '#7d8fa3', '#a58b6f', '#6f8d8a'];
-
-// 폰트는 Pretendard 하나로 통일. 굵기마다 파일이 따로라 패밀리 이름도 따로 쓴다.
-// (커스텀 폰트에서는 fontWeight로 굵기를 고를 수 없어서, 굵기 → 패밀리로 바꿔 준다)
+// 폰트는 Pretendard 하나. 굵기마다 파일이 따로라 패밀리 이름도 따로 쓴다.
 export const fonts = {
   regular: 'Pretendard-Regular',
   medium: 'Pretendard-Medium',
@@ -84,5 +133,22 @@ export function familyFor(weight: TextStyle['fontWeight']): string {
   return fonts.regular;
 }
 
-export const radius = { card: 22, button: 14, chip: 999 };
-export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 28 };
+/** 글자 단계. 위계는 굵기와 크기 대비로만 세운다. */
+export const type = {
+  display: { size: 30, weight: '700' },   // 카드 질문
+  title: { size: 22, weight: '700' },     // 화면 제목
+  headline: { size: 17, weight: '600' },  // 구역 이름, 섹션 제목
+  body: { size: 15, weight: '400' },
+  label: { size: 13, weight: '600' },     // 입력 라벨, 버튼 보조
+  caption: { size: 12, weight: '500' },   // 메타 정보 (가장 작은 글자)
+} as const;
+
+/** 짐 표식(아이콘)은 세 가지 크기로만 쓴다. */
+export const markSize = { card: 120, row: 20, cell: 16 } as const;
+
+/** 트렁크 상자와 포스터 칸이 공유하는 칸 모듈 (가로:세로 = 7:3). */
+export const CELL_RATIO = 7 / 3;
+
+export const radius = { card: 20, control: 12, marker: 6, pill: 999 };
+export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 28, xxxl: 40 };
+export const touch = { min: 44, android: 48 };

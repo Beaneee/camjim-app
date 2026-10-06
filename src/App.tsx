@@ -2,29 +2,28 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DeckScreen } from './screens/DeckScreen';
 import { PosterScreen } from './screens/PosterScreen';
 import { SetupScreen } from './screens/SetupScreen';
 import { StoreProvider, useStore } from './store';
-import { fontFiles, space, useTheme } from './theme';
+import { fontFiles, useTheme } from './theme';
 
 function Router() {
-  const { state } = useStore();
-  if (state.screen === 'deck' && state.trip) return <DeckScreen />;
-  if (state.screen === 'poster' && state.trip) return <PosterScreen />;
-  return <SetupScreen />;
+  const { state, captureKey } = useStore();
+  if (state.screen === 'deck' && state.trip) return <DeckScreen key={captureKey} />;
+  if (state.screen === 'poster' && state.trip) return <PosterScreen key={captureKey} />;
+  return <SetupScreen key={captureKey} />;
 }
 
 function Shell() {
-  const { c, isDark } = useTheme();
+  const { c } = useTheme();
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: c.paper }]}>
-      <View style={styles.frame}>
-        <Router />
-      </View>
-      <StatusBar style={isDark ? 'light' : 'dark'} />
-    </SafeAreaView>
+    <View style={[styles.root, { backgroundColor: c.ground }]}>
+      <Router />
+      {/* 모든 화면 위쪽이 남청 안내판 띠라 상태 표시줄 글자는 항상 밝게 */}
+      <StatusBar style="light" />
+    </View>
   );
 }
 
@@ -42,7 +41,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1 },
-  // 프로토타입과 같은 폭(최대 420) 가운데 정렬
-  frame: { flex: 1, width: '100%', maxWidth: 420, alignSelf: 'center', paddingHorizontal: space.xl, paddingVertical: space.lg },
+  root: { flex: 1 },
 });
