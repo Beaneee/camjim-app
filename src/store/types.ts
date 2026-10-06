@@ -42,6 +42,8 @@ export type Action =
   | { type: 'answer'; id: string; result: Result; deckIds: string[] }
   | { type: 'undo'; deckIds: string[] }
   | { type: 'poster' }
+  | { type: 'pause' }
+  | { type: 'resume' }
   | { type: 'resolve'; id: string; result: Result }
   | { type: 'include'; id: string }
   | { type: 'finish'; record: TripRecord; nextDraft: Draft }

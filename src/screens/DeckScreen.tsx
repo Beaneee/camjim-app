@@ -1,6 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { AccessibilityInfo, StyleSheet, View, useWindowDimensions } from 'react-native';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { AccessibilityInfo, Alert, BackHandler, Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, {
   Easing,
   FadeIn,
@@ -33,7 +34,7 @@ import {
 } from '../data/items';
 import { useStore, type Result } from '../store';
 import { captureFlags } from '../store/capture';
-import { space, useTheme } from '../theme';
+import { minTouch, space, useTheme } from '../theme';
 
 const OUT = Easing.bezier(0.22, 1, 0.36, 1);   // 지수형 감속
 const IN = Easing.bezier(0.5, 0, 0.9, 0.5);
@@ -199,6 +200,21 @@ export function DeckScreen() {
     dispatch({ type: 'undo', deckIds });
   };
 
+  // ---- 그만하기: 진행은 저장되고 시작 화면에서 이어서 할 수 있다. Android 뒤로 가기도 같은 확인을 연다.
+  const askPause = useCallback(() => {
+    Alert.alert('짐 싸기를 잠깐 멈출까요?', '지금까지 답한 건 저장돼요. 시작 화면에서 이어서 할 수 있어요.', [
+      { text: '계속하기', style: 'cancel' },
+      { text: '그만하기', onPress: () => dispatch({ type: 'pause' }) },
+    ]);
+  }, [dispatch]);
+  useEffect(() => {
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (!finished) askPause(); // 엔딩 중에는 뒤로 가기를 무시한다
+      return true;
+    });
+    return () => sub.remove();
+  }, [finished, askPause]);
+
   // ---- 엔딩: 버튼이 빠지고, 차가 가운데로 커진 뒤 문이 닫히고 출발 → 포스터
   const [closed, setClosed] = useState(false);
   const [driving, setDriving] = useState(false);
@@ -225,12 +241,23 @@ export function DeckScreen() {
     <View style={styles.flex}>
       <Band>
         <View style={styles.bandTop}>
-          <Display size={22} color={c.onBand} numberOfLines={1} style={styles.flexShrink}>
+          <Display size={22} color={c.onBand} numberOfLines={1} style={styles.name}>
             {trip.name}
           </Display>
           <Sans size={17} weight="700" color={c.onBand} style={styles.num} accessibilityLabel={progressLabel()}>
             {progressText()}
           </Sans>
+          {!finished ? (
+            <Pressable
+              onPress={askPause}
+              accessibilityRole="button"
+              accessibilityLabel="그만하기"
+              accessibilityHint="지금까지 답한 건 저장돼요"
+              hitSlop={8}
+              style={({ pressed }) => [styles.close, pressed && { opacity: 0.6 }]}>
+              <MaterialCommunityIcons name="close" size={24} color={c.onBand} />
+            </Pressable>
+          ) : null}
         </View>
         {round === 'later' ? (
           <Sans size={15} weight="600" color={c.bandSoft}>나중에로 넘긴 짐 {state.queue.length}개, 트렁크 닫기 전에 다시 볼게요</Sans>
@@ -311,9 +338,11 @@ export function DeckScreen() {
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   flexShrink: { flexShrink: 1 },
+  name: { flex: 1 },
   num: { fontVariant: ['tabular-nums'] },
   center: { textAlign: 'center' },
   bandTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.md },
+  close: { width: minTouch, height: minTouch, alignItems: 'center', justifyContent: 'center', marginRight: -space.sm },
   zoneLine: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   zoneSwatch: { width: 12, height: 12, borderRadius: 3 },
   body: {

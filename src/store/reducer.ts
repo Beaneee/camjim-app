@@ -71,6 +71,13 @@ export function reducer(s: AppState, a: Action): AppState {
     case 'poster':
       return { ...s, screen: 'poster' };
 
+    // 그만하기: 시작 화면으로 가되 진행은 남겨 둔다 (이어서 하기)
+    case 'pause':
+      return s.trip ? { ...s, screen: 'setup' } : s;
+
+    case 'resume':
+      return s.trip ? { ...s, screen: s.round === 'done' ? 'poster' : 'deck' } : s;
+
     case 'resolve':
       return { ...s, res: { ...s.res, [a.id]: a.result } };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Band } from '../components/Band';
 import { Button } from '../components/Button';
@@ -52,13 +52,24 @@ export function SetupScreen() {
 
   const set = (patch: Partial<Draft>) => dispatch({ type: 'draft', draft: { ...draft, ...patch } });
 
-  const start = () => {
+  const doStart = () => {
     const name = draft.name.trim() || `${SEASONS[draft.season]} 캠핑`;
     dispatch({
       type: 'start',
       trip: { name, season: draft.season, nights: draft.nights, date: new Date().toISOString() },
       force: draft.force.filter((id) => skipIds.includes(id)),
     });
+  };
+
+  // 멈춰 둔 캠핑이 있으면 새로 시작하기 전에 확인한다 (덮어쓰면 그 답이 사라진다)
+  const paused = state.trip;
+  const answered = Object.keys(state.res).length;
+  const start = () => {
+    if (!paused) return doStart();
+    Alert.alert(`'${paused.name}'을(를) 지우고 새로 시작할까요?`, `지금까지 답한 ${answered}개가 지워져요.`, [
+      { text: '취소', style: 'cancel' },
+      { text: '새로 시작', style: 'destructive', onPress: doStart },
+    ]);
   };
 
   return (
@@ -74,6 +85,17 @@ export function SetupScreen() {
           contentContainerStyle={[styles.body, { paddingBottom: insets.bottom + space.xxl }]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
+          {paused ? (
+            <View style={[styles.resume, { backgroundColor: c.card, borderColor: c.control }]}>
+              <Label size={13} color={c.inkSoft}>짐 싸는 중</Label>
+              <Display size={20}>{paused.name}</Display>
+              <Sans size={13} color={c.inkSoft} style={styles.num}>
+                {SEASONS[paused.season]} {NIGHTS[paused.nights]} · {answered}개 답함
+              </Sans>
+              <Button title="이어서 하기" icon="play" variant="primary" onPress={() => dispatch({ type: 'resume' })} />
+            </View>
+          ) : null}
+
           <View style={styles.field}>
             <Label size={13} color={c.inkSoft} nativeID="trip-name-label">캠핑 이름</Label>
             <TextInput
@@ -154,7 +176,7 @@ export function SetupScreen() {
             </Sans>
           ) : null}
 
-          <Button title="짐 싸기 시작" variant="primary" size="lg" onPress={start} />
+          <Button title={paused ? '새로 시작' : '짐 싸기 시작'} variant={paused ? 'outline' : 'primary'} size="lg" onPress={start} />
 
           <View style={styles.section}>
             <Label size={13} color={c.inkSoft}>지난 캠핑</Label>
@@ -185,6 +207,7 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   body: { width: '100%', maxWidth: 420, alignSelf: 'center', paddingHorizontal: space.xl, paddingTop: space.xl, gap: space.xl },
   field: { gap: space.sm },
+  resume: { gap: space.xs, padding: space.lg, borderRadius: radius.card, borderWidth: 1.5 },
   section: { gap: space.sm, marginTop: space.xs },
   input: {
     fontSize: 20,

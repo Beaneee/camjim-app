@@ -1,7 +1,7 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import * as MediaLibrary from 'expo-media-library';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
+import { Alert, BackHandler, Linking, ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, { FadeInLeft, useReducedMotion } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { captureRef } from 'react-native-view-shot';
@@ -29,7 +29,13 @@ function fmtDate(iso: string) {
   return `${d.getFullYear()}. ${d.getMonth() + 1}. ${d.getDate()}.`;
 }
 
-type SaveState = { kind: 'idle' } | { kind: 'saving' } | { kind: 'saved' } | { kind: 'denied' } | { kind: 'error' };
+type SaveState =
+  | { kind: 'idle' }
+  | { kind: 'saving' }
+  | { kind: 'saved' }
+  | { kind: 'denied'; canAskAgain: boolean }
+  | { kind: 'captureError' }
+  | { kind: 'saveError' };
 
 export function PosterScreen() {
   const { c } = useTheme();
@@ -55,18 +61,50 @@ export function PosterScreen() {
 
   const saveImage = async () => {
     setSave({ kind: 'saving' });
+    let perm: MediaLibrary.PermissionResponse;
     try {
-      const perm = await MediaLibrary.requestPermissionsAsync(true);
-      if (!perm.granted) { setSave({ kind: 'denied' }); return; }
-      const uri = await captureRef(sheet, { format: 'png', quality: 1, result: 'tmpfile' });
+      perm = await MediaLibrary.requestPermissionsAsync(true);
+    } catch {
+      setSave({ kind: 'denied', canAskAgain: false });
+      return;
+    }
+    if (!perm.granted) { setSave({ kind: 'denied', canAskAgain: perm.canAskAgain }); return; }
+    let uri: string;
+    try {
+      uri = await captureRef(sheet, { format: 'png', quality: 1, result: 'tmpfile' });
+    } catch {
+      setSave({ kind: 'captureError' });
+      return;
+    }
+    try {
       await MediaLibrary.saveToLibraryAsync(uri);
       setSave({ kind: 'saved' });
     } catch {
-      setSave({ kind: 'error' });
+      setSave({ kind: 'saveError' });
     }
   };
 
+  // Android 뒤로 가기: 진행을 남긴 채 시작 화면으로 (이어서 하기로 돌아올 수 있다)
+  useEffect(() => {
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      dispatch({ type: 'pause' });
+      return true;
+    });
+    return () => sub.remove();
+  }, [dispatch]);
+
+  const discard = () => {
+    Alert.alert('기록하지 않고 처음으로 갈까요?', '이번 캠핑에서 답한 내용이 지워져요.', [
+      { text: '취소', style: 'cancel' },
+      { text: '지우기', style: 'destructive', onPress: () => dispatch({ type: 'discard' }) },
+    ]);
+  };
+
+  // 두 번 눌러도 한 번만 기록한다
+  const finished = useRef(false);
   const finish = () => {
+    if (finished.current) return;
+    finished.current = true;
     dispatch({
       type: 'finish',
       record: { name: trip.name, season: trip.season, nights: trip.nights, date: trip.date, yes, later: laterIds, no, auto: autoIds },
@@ -176,13 +214,23 @@ export function PosterScreen() {
             disabled={save.kind === 'saving'} onPress={saveImage} />
           {save.kind === 'saved' ? <Sans size={13} color={c.inkSoft} style={styles.center}>사진첩에 저장했어요.</Sans> : null}
           {save.kind === 'denied' ? (
-            <Sans size={13} color={c.inkSoft} style={styles.center}>사진 저장을 허용해야 저장할 수 있어요. 설정에서 허용한 뒤 다시 눌러 주세요.</Sans>
+            <View style={styles.notice}>
+              <Sans size={13} color={c.inkSoft} style={styles.center}>
+                {save.canAskAgain
+                  ? '사진 저장을 허용해야 포스터를 저장할 수 있어요. 다시 누르면 허용 창이 떠요.'
+                  : '사진 저장이 꺼져 있어요. 설정에서 캠짐의 사진 접근을 허용한 뒤 다시 눌러 주세요.'}
+              </Sans>
+              {!save.canAskAgain ? <Button title="설정 열기" variant="text" onPress={() => Linking.openSettings()} /> : null}
+            </View>
           ) : null}
-          {save.kind === 'error' ? (
-            <Sans size={13} color={c.inkSoft} style={styles.center}>저장하지 못했어요. 다시 눌러 주세요.</Sans>
+          {save.kind === 'captureError' ? (
+            <Sans size={13} color={c.inkSoft} style={styles.center}>포스터 이미지를 만들지 못했어요. 다시 눌러 주세요.</Sans>
+          ) : null}
+          {save.kind === 'saveError' ? (
+            <Sans size={13} color={c.inkSoft} style={styles.center}>사진첩에 저장하지 못했어요. 기기 저장 공간을 확인하고 다시 눌러 주세요.</Sans>
           ) : null}
           <Button title="기록하고 마치기" variant="primary" size="lg" onPress={finish} />
-          <Button title="기록 없이 처음으로" variant="text" onPress={() => dispatch({ type: 'discard' })} />
+          <Button title="기록 없이 처음으로" variant="text" onPress={discard} />
         </View>
       </ScrollView>
     </Animated.View>
@@ -287,4 +335,5 @@ const styles = StyleSheet.create({
   sheetFoot: { alignItems: 'center', gap: 2, paddingTop: space.xs },
   sheetFootLine: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
   actions: { gap: space.sm },
+  notice: { gap: 0, alignItems: 'center' },
 });
