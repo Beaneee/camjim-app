@@ -1,5 +1,5 @@
 import * as Haptics from 'expo-haptics';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, {
   Easing,
@@ -127,6 +127,15 @@ export function DeckScreen() {
     }
   }, [width, reduced]);
 
+  // 현재 카드가 바뀐 직후(이전 카드는 이미 빠진 상태)에 다음 카드 등장 애니메이션을 시작한다
+  const pendingReset = useRef<'rise' | 'backIn' | null>(null);
+  const cardKey = item ? item.id + round : 'none';
+  useLayoutEffect(() => {
+    if (!pendingReset.current) return;
+    resetForNext(pendingReset.current);
+    pendingReset.current = null;
+  }, [cardKey]);
+
   const act = (kind: Result) => {
     if (busy.current || !item) return;
     busy.current = true;
@@ -174,8 +183,10 @@ export function DeckScreen() {
         opacity.value = withTiming(0, { duration: EXIT - 40 });
       }
       later(() => {
+        // 애니메이션 값은 새 카드가 화면에 올라온 뒤에 되돌린다 (아래 useLayoutEffect).
+        // 여기서 바로 되돌리면 아직 빠지지 않은 이전 카드가 흐릿하게 다시 보인다.
+        pendingReset.current = 'rise';
         dispatch({ type: 'answer', id: item.id, result: kind, deckIds });
-        resetForNext('rise');
         busy.current = false;
       }, reduced ? 170 : EXIT);
     }, HOLD);
@@ -184,8 +195,8 @@ export function DeckScreen() {
   const canUndo = !finished && (round === 'later' || state.i > 0);
   const undo = () => {
     if (busy.current || !canUndo) return;
+    pendingReset.current = 'backIn';
     dispatch({ type: 'undo', deckIds });
-    resetForNext('backIn');
   };
 
   // ---- 엔딩: 버튼이 빠지고, 차가 가운데로 커진 뒤 문이 닫히고 출발 → 포스터
@@ -258,7 +269,7 @@ export function DeckScreen() {
               ) : null}
               {item ? (
                 <Card
-                  key={item.id + round}
+                  key={cardKey}
                   item={item}
                   season={trip.season}
                   importance={importanceOf(item, trip.season, skippedLast(item.id))}
